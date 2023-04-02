@@ -1,0 +1,20 @@
+<!-- ======= General Modals ======= -->
+<!-- Delete Modal -->
+<div th:fragment="deleteModal" class="modal fade" id="deleteModal" tabindex="-1"
+     aria-hidden="true">
+  <div class="modal-dialog modal-confirm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="deleteModalLabel" th:text="#{delete.modal.header}"></h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" th:aria-label="Close"></button>
+      </div>
+      <div class="modal-body modal-delete-body" id="deleteModalBody">
+        <span id="confirmText"></span>
+      </div>
+      <div class="modal-footer">
+        <div th:replace="~{fragments/buttons :: deleteModalButtons}"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End delete modal -->

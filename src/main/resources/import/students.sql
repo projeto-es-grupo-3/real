@@ -1,0 +1,12 @@
+insert into students (id, first_name, last_name, email, age, user_details_id) values (1, 'Jan', 'Wawrzyniak', 'j.wawrzyniak@gmail.com', 22, 1);
+insert into students (id, first_name, last_name, email, age) values (2, 'Maciej', 'Komaranczuk', 'm.komaranczuk@gmail.com', 25);
+insert into students (id, first_name, last_name, email, age) values (3, 'Weronika', 'Romanski', 'w.romanski@gmail.com', 20);
+insert into students (id, first_name, last_name, email, age) values (4, 'Robert', 'Kaczuk', 'r.kaczuk@gmail.com', 21);
+insert into students (id, first_name, last_name, email, age) values (5, 'Alojzy', 'Adach', 'a.adach@gmail.com', 22);
+insert into students (id, first_name, last_name, email, age) values (6, 'Bogdan', 'Agaciński', 'b.agaciński@gmail.com', 25);
+insert into students (id, first_name, last_name, email, age) values (7, 'Cyryl', 'Badach', 'c.badach@gmail.com', 20);
+insert into students (id, first_name, last_name, email, age) values (8, 'Emanuel', 'Żyra', 'e.żyra@gmail.com', 21);
+insert into students (id, first_name, last_name, email, age) values (9, 'Gniewomir', 'Żygłowicz', 'g.żygłowicz@gmail.com', 22);
+insert into students (id, first_name, last_name, email, age) values (10, 'Jacenty', 'Zwierzyński', 'j.zwierzyński@gmail.com', 25);
+insert into students (id, first_name, last_name, email, age) values (11, 'Karol', 'Zimerman', 'k.zimerman@gmail.com', 20);
+insert into students (id, first_name, last_name, email, age) values (12, 'Kosma', 'Wyrwicz', 'k.wyrwicz@gmail.com', 21);
