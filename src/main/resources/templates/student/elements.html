@@ -1,0 +1,148 @@
+<!-- ======= Form for Student ======= -->
+<div th:fragment="student-form">
+    <input hidden id="id_input_id" th:field="*{id}" type="text">
+    <div class="mb-4" th:classappend="${#fields.hasErrors('firstName')} ? mb-5">
+        <h4 th:text="#{student.firstName}"></h4>
+        <div class="form-outline">
+            <input class="form-control"
+                   data-mdb-showcounter="true"
+                   th:field="*{firstName}"
+                   maxlength="30" th:classappend="${#fields.hasErrors('firstName')} ? is-invalid"
+                   type="text"/>
+            <div class="form-helper"></div>
+            <div class="invalid-tooltip">
+                <span class="mr-1" th:each="error: ${#fields.errors('firstName')}" th:text="${error}"></span>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="mb-4" th:classappend="${#fields.hasErrors('lastName')} ? mb-5">
+        <h4 th:text="#{student.lastName}"></h4>
+        <div class="form-outline">
+            <input class="form-control"
+                   data-mdb-showcounter="true"
+                   th:field="*{lastName}"
+                   maxlength="30" th:classappend="${#fields.hasErrors('lastName')} ? is-invalid"
+                   type="text"/>
+            <div class="form-helper"></div>
+            <div class="invalid-tooltip">
+                <span class="mr-1" th:each="error: ${#fields.errors('lastName')}" th:text="${error}"></span>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="mb-4" th:classappend="${#fields.hasErrors('email')} ? mb-5">
+        <h4 th:text="#{student.email}"></h4>
+        <div class="form-outline">
+            <input class="form-control"
+                   th:field="*{email}"
+                   th:classappend="${#fields.hasErrors('email')} ? is-invalid"
+                   type="email"/>
+            <div class="form-helper" th:text="#{input.helper.email}"
+                 th:unless="${#fields.hasErrors('email')}"></div>
+            <div class="invalid-tooltip">
+                <span class="mr-1" th:each="error: ${#fields.errors('email')}" th:text="${error}"></span>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="mb-4" th:classappend="${#fields.hasErrors('age')} ? mb-5">
+        <h4 th:text="#{student.age}"></h4>
+        <div class="form-outline">
+            <input class="form-control"
+                   th:field="*{age}"
+                   th:classappend="${#fields.hasErrors('age')} ? is-invalid"
+                   type="number"/>
+            <div class="form-helper" th:text="#{input.helper.age}"
+                 th:unless="${#fields.hasErrors('age')}"></div>
+            <div class="invalid-tooltip">
+                <span class="mr-1" th:each="error: ${#fields.errors('age')}" th:text="${error}"></span>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row mb-4">
+        <h4 th:text="#{student.fieldOfStudy}"></h4>
+        <div class="col-sm">
+            <select class="form-select" id="field_of_study" th:field="*{fieldOfStudy}">
+                <option th:each="fieldOpt : ${fieldsOfStudy}"
+                        th:text="${fieldOpt.name}
+                + ', Study mode: ' + ${fieldOpt.mode.value}
+                + ', Level of education: ' + ${fieldOpt.levelOfEducation.value}
+                + ', Obtained title: ' + ${fieldOpt.title.fullTitle}"
+                        th:value="${fieldOpt.id}">
+                </option>
+            </select>
+        </div>
+    </div>
+
+</div>
+
+<!-- ======= View Student card body ======= -->
+<div th:fragment="view-student">
+    <div class="mb-4">
+        <h4 th:text="#{student.firstName}"></h4>
+        <span th:text="${student.firstName}"></span>
+    </div>
+    <hr>
+    <div class="mb-4">
+        <h4 th:text="#{student.lastName}"></h4>
+        <span th:text="${student.lastName}"></span>
+    </div>
+    <hr>
+    <div class="mb-4">
+        <h4 th:text="#{student.email}"></h4>
+        <span th:text="${student.email}"></span>
+    </div>
+    <hr>
+    <div class="mb-4">
+        <h4 th:text="#{student.age}"></h4>
+        <span th:text="${student.age}"></span>
+    </div>
+    <hr>
+    <div class="mb-4">
+        <h4 th:text="#{student.fieldOfStudy}"></h4>
+        <a th:unless="${student.fieldOfStudy == null}"
+           class="text-body"
+           th:href="@{/dashboard/fields-of-study/{id}(id=${student.fieldOfStudy.id})}">
+            <span th:text="${student.fieldOfStudy.name}"></span>
+            <i class="fas fa-regular fa-up-right-from-square"></i>
+        </a>
+        <span th:if="${student.fieldOfStudy == null}" th:text="#{input.undefined}"></span>
+    </div>
+    <hr>
+    <div class="mb-4">
+        <h4 th:text="#{student.teachersList}"></h4>
+        <span th:if="${student.teachers.size() == 0}" th:text="#{student.no.teachers}"></span>
+        <th:block th:unless="${student.teachers.size() == 0}" th:each="fieldOpt, count : ${student.teachers}">
+            <div class="mb-2">
+                <span th:text="${count.index + 1} + '. '"></span>
+                <a class="text-body"
+                   th:href="@{/dashboard/teachers/{id}(id=${fieldOpt.id})}">
+                <span th:text="${fieldOpt.firstName} + ' ' + ${fieldOpt.lastName}"
+                      th:value="${fieldOpt.id}"></span>
+                    <i class="fas fa-regular fa-up-right-from-square"></i>
+                </a>
+            </div>
+        </th:block>
+    </div>
+    <hr>
+    <div class="mb-4" th:unless="${student.fieldOfStudy == null}">
+        <h4 th:text="#{student.subjectList}"></h4>
+        <span th:if="${student.fieldOfStudy.subjects.size() == 0}" th:text="#{student.no.subjects}"></span>
+        <th:block th:unless="${student.fieldOfStudy.subjects.size() == 0}"
+                  th:each="fieldOpt, count : ${student.fieldOfStudy.subjects}">
+            <div class="mb-2">
+                <span th:text="${count.index + 1} + '. '"></span>
+                <a class="text-body"
+                   th:href="@{/dashboard/subjects/{id}(id=${fieldOpt.id})}">
+                <span th:text="${fieldOpt.name}"
+                      th:value="${fieldOpt.id}"></span>
+                    <i class="fas fa-regular fa-up-right-from-square"></i>
+                </a>
+            </div>
+        </th:block>
+    </div>
+</div>
+
+

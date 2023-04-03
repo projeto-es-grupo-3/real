@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <header th:replace="~{fragments/header :: header}"></header>
+</head>
+
+<body>
+<!-- ======= Navigation ======= -->
+<div th:replace="~{dashboard/fragments/navigation :: #navigation}"></div>
+
+<main>
+    <div class="container pt-4">
+        <!--Alert Section -->
+        <section>
+            <div class="alert alert-success alert-dismissible d-flex align-items-center fade show"
+                 th:if="${success}">
+                <i class="fas fa-check-circle"></i>
+                <strong class="mx-1" th:text="#{msg.success}"></strong>
+                <span th:text="#{fieldOfStudy.success.msg1}"></span>
+                <a class="alert-link mx-1"
+                   th:unless="${deleteSuccess}"
+                   th:href="@{/dashboard/fields-of-study/{id}(id=${success.id})}"
+                   th:text="${success.name}"></a>
+                <strong class="mx-1"
+                        th:if="${deleteSuccess}"
+                        th:text="${success.name}"></strong>
+                <span th:text="#{alert.success.msg2}"></span>
+                <strong class="mx-1" th:if="${createSuccess}" th:text="${createSuccess}"></strong>
+                <strong class="mx-1" th:if="${updateSuccess}" th:text="${updateSuccess}"></strong>
+                <strong class="mx-1" th:if="${deleteSuccess}" th:text="${deleteSuccess}"></strong>
+                <span th:text="#{alert.success.msg3}"></span>
+                <button class="btn-close" data-bs-dismiss="alert" type="button"></button>
+            </div>
+        </section>
+
+        <!--All fields of study Section -->
+        <section class="mb-4">
+            <div class="card">
+                <div class="card-header py-4 title-bar">
+                    <div th:replace="~{fragments/breadcrumb :: breadcrumb}"></div>
+                    <div class="page-title"
+                         th:text="#{fieldsOfStudy.header}">
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div sec:authorize="hasAnyRole('ROLE_DEAN', 'ROLE_ADMIN')"
+                         class="d-flex mb-4">
+                        <div class="ms-auto">
+                            <div th:replace="~{field-of-study/buttons :: btn-add-new}"></div>
+                        </div>
+                    </div>
+                    <!-- Tabs navs -->
+                    <ul class="nav nav-tabs nav-justified mb-4" id="ex1" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a aria-controls="ex1-tabs-1" aria-selected="true" class="nav-link active"
+                               data-mdb-toggle="tab"
+                               href="#ex1-tabs-1" id="ex1-tab-1" role="tab"
+                               th:text="#{fieldsOfStudy.tabs.tab1}">
+                            </a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a aria-controls="ex1-tabs-2" aria-selected="false" class="nav-link" data-mdb-toggle="tab"
+                               href="#ex1-tabs-2" id="ex1-tab-2" role="tab"
+                               th:text="#{fieldsOfStudy.tabs.tab2}">
+                            </a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a aria-controls="ex1-tabs-3" aria-selected="false" class="nav-link" data-mdb-toggle="tab"
+                               href="#ex1-tabs-3" id="ex1-tab-3" role="tab"
+                               th:text="#{fieldsOfStudy.tabs.tab3}">
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- Tabs navs -->
+
+                    <!-- Tabs content -->
+                    <div class="tab-content" id="ex1-content">
+                        <div aria-labelledby="ex1-tab-1" class="tab-pane fade show active" id="ex1-tabs-1"
+                             role="tabpanel">
+                            <div th:replace="~{field-of-study/elements :: all-fields-of-study-card-body}"></div>
+                            <div class="text-muted mt-4"
+                                 th:text="#{fieldsOfStudy.total} + ${fieldsOfStudyMap.size()}">
+                            </div>
+                        </div>
+                        <div aria-labelledby="ex1-tab-2" class="tab-pane fade" id="ex1-tabs-2" role="tabpanel">
+                            <div th:replace="~{field-of-study/elements :: first-fields-of-study-card-body}"></div>
+                            <div class="text-muted mt-4"
+                                 th:text="#{fieldsOfStudy.total} + ${firstFieldsOfStudy.size()}">
+                            </div>
+                        </div>
+                        <div aria-labelledby="ex1-tab-3" class="tab-pane fade" id="ex1-tabs-3" role="tabpanel">
+                            <div th:replace="~{field-of-study/elements :: second-fields-of-study-card-body}"></div>
+                            <div class="text-muted mt-4"
+                                 th:text="#{fieldsOfStudy.total} + ${secondFieldsOfStudy.size()}">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Tabs content -->
+
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+
+
+<!-- JS Scripts -->
+<div th:replace="~{fragments/scripts :: scripts}"></div>
+</body>
+</html>

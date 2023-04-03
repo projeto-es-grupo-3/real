@@ -1,0 +1,51 @@
+<body>
+<div th:fragment="nav">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+        <div class="container" >
+            <div class="navbar-header">
+                <a class="navbar-brand" th:href="@{/}" th:text="#{navbar.app.name}">
+                    <span th:text="#{navbar.app.name}"></span>
+                </a>
+            </div>
+            <button type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav"
+                    class="navbar-toggler"
+                    aria-controls="navbarNav"
+                    aria-expanded="false"
+                    aria-label="toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav text-center">
+                    <li class="nav-item">
+                        <a th:href="@{/students}" class="nav-link">
+                            <span th:text="#{navbar.students}"></span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a th:href="@{/teachers}" class="nav-link">
+                            <span th:text="#{navbar.teachers}"></span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a th:href="@{/students/new}" class="nav-link">
+                            <span th:text="#{navbar.student.new}"></span>
+                        </a>
+                    </li>
+
+
+                    <li class="nav-item">
+                        <a th:href="@{/teachers/new}" class="nav-link">
+                            <span th:text="#{navbar.teacher.new}"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+</body>

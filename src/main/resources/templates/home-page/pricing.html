@@ -1,0 +1,72 @@
+<section id="pricing" class="pricing" xmlns:sec="http://www.w3.org/1999/xhtml">
+    <div class="container" data-aos="fade-up">
+        <div class="section-title">
+            <h2 th:text="#{home.pricing.header.h2}"></h2>
+            <p th:text="#{home.pricing.header.desc}"></p>
+        </div>
+
+        <div class="row align-items-center">
+
+            <div class="col-lg-4">
+                <div class="box" data-aos="zoom-in" data-aos-delay="100">
+                    <h3 th:text="#{home.pricing.card1.name}"></h3>
+                    <h4>
+                        <div th:text="#{home.pricing.card1.price}"></div>
+                        <span th:text="#{home.pricing.per.month}"></span></h4>
+                    <ul>
+                        <li><i class="bx bx-check"></i><span th:text="#{home.pricing.card.box1}"></span></li>
+                        <li><i class="bx bx-check"></i><span th:text="#{home.pricing.card1.box2}"></span></li>
+                        <li><i class="bx bx-check"></i><span th:text="#{home.pricing.card.box3}"></span></li>
+                        <li class="na"><i class="bx bx-x"></i><span th:text="#{home.pricing.card.box4}"></span></li>
+                        <li class="na"><i class="bx bx-x"></i><span th:text="#{home.pricing.card.box5}"></span></li>
+                        <li class="na"><i class="bx bx-x"></i><span th:text="#{home.pricing.card.box6}"></span></li>
+                        <li class="na"><i class="bx bx-x"></i><span th:text="#{home.pricing.card.box7}"></span></li>
+                    </ul>
+                    <a sec:authorize="!isAuthenticated()" th:href="@{/sign-up}" class="get-started-btn"
+                       th:text="#{home.pricing.get.started}"></a>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="box featured" data-aos="zoom-in" data-aos-delay="100">
+                    <h3 th:text="#{home.pricing.card2.name}"></h3>
+                    <h4>
+                        <div th:text="#{home.pricing.card2.price}"></div>
+                        <span th:text="#{home.pricing.per.month}"></span></h4>
+                    <ul>
+                        <li><i class="bx bx-check"></i><span th:text="#{home.pricing.card.box1}"></span></li>
+                        <li><i class="bx bx-check"></i><span th:text="#{home.pricing.card2.box2}"></span></li>
+                        <li><i class="bx bx-check"></i><span th:text="#{home.pricing.card.box3}"></span></li>
+                        <li><i class="bx bx-check"></i><span th:text="#{home.pricing.card.box4}"></span></li>
+                        <li><i class="bx bx-check"></i><span th:text="#{home.pricing.card.box5}"></span></li>
+                        <li class="na"><i class="bx bx-x"></i><span th:text="#{home.pricing.card.box6}"></span></li>
+                        <li class="na"><i class="bx bx-x"></i><span th:text="#{home.pricing.card.box7}"></span></li>
+                    </ul>
+                    <a sec:authorize="!isAuthenticated()" th:href="@{/sign-up}" class="get-started-btn"
+                       th:text="#{home.pricing.get.started}"></a>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="box" data-aos="zoom-in" data-aos-delay="100">
+                    <h3 th:text="#{home.pricing.card3.name}"></h3>
+                    <h4>
+                        <div th:text="#{home.pricing.card3.price}"></div>
+                        <span th:text="#{home.pricing.per.month}"></span></h4>
+                    <ul>
+                        <li><i class="bx bx-check"></i><span th:text="#{home.pricing.card.box1}"></span></li>
+                        <li><i class="bx bx-check"></i><span th:text="#{home.pricing.card3.box2}"></span></li>
+                        <li><i class="bx bx-check"></i><span th:text="#{home.pricing.card.box3}"></span></li>
+                        <li><i class="bx bx-check"></i><span th:text="#{home.pricing.card.box4}"></span></li>
+                        <li><i class="bx bx-check"></i><span th:text="#{home.pricing.card.box5}"></span></li>
+                        <li><i class="bx bx-check"></i><span th:text="#{home.pricing.card.box6}"></span></li>
+                        <li><i class="bx bx-check"></i><span th:text="#{home.pricing.card.box7}"></span></li>
+                    </ul>
+                    <a sec:authorize="!isAuthenticated()" th:href="@{/sign-up}" class="get-started-btn"
+                       th:text="#{home.pricing.get.started}"></a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

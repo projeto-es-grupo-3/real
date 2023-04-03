@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    username: root
+    password: password
+    url: jdbc:mysql://localhost:3307/classroom
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  sql:
+    init:
+      platform: mysql
+      mode: always
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        hbm2ddl:
+          import_files: import/roles_and_privileges.sql, import/users.sql, import/students.sql, import/teachers.sql, import/departments.sql, import/fieldsOfStudy.sql, import/subjects.sql, import/relations.sql
+    open-in-view: true
+  jackson:
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
