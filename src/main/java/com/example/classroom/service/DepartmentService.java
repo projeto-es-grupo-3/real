@@ -1,6 +1,7 @@
 package com.example.classroom.service;
 
 import com.example.classroom.dto.DepartmentDto;
+import com.example.classroom.exception.DepartmentAlreadyExists;
 import com.example.classroom.exception.DepartmentNotFoundException;
 import com.example.classroom.model.Department;
 import com.example.classroom.model.FieldOfStudy;
@@ -27,7 +28,12 @@ public class DepartmentService {
 
     @Transactional
     public DepartmentDto create(DepartmentDto dto) {
+        if(repository.findAllByNameContainingIgnoreCase(dto.getName()) != null){
+            throw new DepartmentAlreadyExists(
+                    "Department '" + dto.getName() + "' with ID: " + dto.getId() + " already exists.");
+        }
         Department department = mapper.map(dto, Department.class);
+
         addReferencingObjects(department);
         Department saved = repository.save(department);
         return mapper.map(saved, DepartmentDto.class);
