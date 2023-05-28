@@ -111,14 +111,17 @@ public class Subject {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (Objects.isNull(o) || getClass() != o.getClass()) return false;
         Subject subject = (Subject) o;
         return hoursInSemester == subject.hoursInSemester && id.equals(subject.id) && Objects.equals(name, subject.name) && Objects.equals(description, subject.description) && semester == subject.semester;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, semester, hoursInSemester);
+        int prime = 29;
+        int result = 3;
+        result += Objects.hash(id) * prime + Objects.hash(name) * prime;
+        result += Objects.hash(description, semester, hoursInSemester);
+        return result;
     }
 }

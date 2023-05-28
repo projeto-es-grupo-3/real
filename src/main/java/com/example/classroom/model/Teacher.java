@@ -137,14 +137,21 @@ public class Teacher {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (Objects.isNull(o) || getClass() != o.getClass()) return false;
         Teacher teacher = (Teacher) o;
-        return age == teacher.age && id.equals(teacher.id) && firstName.equals(teacher.firstName) && lastName.equals(teacher.lastName) && email.equals(teacher.email);
+        return age == teacher.age
+                && id.equals(teacher.id)
+                && firstName.equals(teacher.firstName)
+                && lastName.equals(teacher.lastName)
+                && email.equals(teacher.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, age, email);
+        int prime = 37;
+        int result = 3;
+        result += Objects.hash(id) * prime + Objects.hash(firstName) * prime;
+        result += Objects.hash(age, email);
+        return result;
     }
 }

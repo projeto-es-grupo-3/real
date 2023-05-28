@@ -97,15 +97,18 @@ public class Student {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (Objects.isNull(o) || getClass() != o.getClass()) return false;
         Student student = (Student) o;
         return age == student.age && id.equals(student.id) && Objects.equals(firstName, student.firstName) && Objects.equals(lastName, student.lastName) && Objects.equals(email, student.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, age, email);
+        int prime = 37;
+        int result = 3;
+        result += Objects.hash(id) * prime + Objects.hash(firstName) * prime + Objects.hash(lastName);
+        result += Objects.hash(age, email);
+        return result;
     }
 
     @Override

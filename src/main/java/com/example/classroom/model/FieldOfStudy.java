@@ -152,14 +152,17 @@ public class FieldOfStudy {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (Objects.isNull(o) || getClass() != o.getClass()) return false;
         FieldOfStudy that = (FieldOfStudy) o;
         return id.equals(that.id) && Objects.equals(name, that.name) && levelOfEducation == that.levelOfEducation && mode == that.mode && title == that.title;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, levelOfEducation, mode, title);
+        int prime = 37;
+        int result = 3;
+        result += Objects.hash(id) * prime + Objects.hash(name) * prime;
+        result += Objects.hash(levelOfEducation, mode, title);
+        return result;
     }
 }
