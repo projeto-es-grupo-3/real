@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class BreadcrumbService {
@@ -52,7 +53,8 @@ public class BreadcrumbService {
     private static void addEditEndpointBreadcrumb(List<Breadcrumb> breadcrumbs, String[] segments, StringBuilder path, int i) {
         String id = segments[i + 1];
         Breadcrumb breadcrumb = new Breadcrumb("Edit  /  " + id, path + SEPARATOR + id);
-        checkIfSegmentIsLast(segments, ++i, breadcrumb);
+        int index = ++i;
+        checkIfSegmentIsLast(segments, index, breadcrumb);
         breadcrumbs.add(breadcrumb);
     }
 
@@ -73,7 +75,7 @@ public class BreadcrumbService {
     }
 
     private String capitalize(String str) {
-        if (str == null || str.isEmpty()) {
+        if (Objects.isNull(str) || str.isEmpty()) {
             return str;
         }
         return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();

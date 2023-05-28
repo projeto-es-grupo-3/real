@@ -94,14 +94,17 @@ public class Department {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (Objects.isNull(o) || getClass() != o.getClass()) return false;
         Department that = (Department) o;
-        return telNumber == that.telNumber && Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(address, that.address);
+        return Objects.equals(telNumber, that.telNumber) && Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(address, that.address);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, address, telNumber);
+        int result = 3;
+        result += Objects.hash(id) * 37 + Objects.hash(name) * 21;
+        int c = Objects.hash(address, telNumber);
+        result += c;
+        return result;
     }
 }

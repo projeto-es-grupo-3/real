@@ -19,7 +19,7 @@ public class Token {
     public Long id;
 
     @Column(unique = true)
-    public String token;
+    public String token_value;
 
     @Enumerated(EnumType.STRING)
     public TokenType tokenType = TokenType.BEARER;

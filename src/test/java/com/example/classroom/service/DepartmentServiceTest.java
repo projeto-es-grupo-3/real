@@ -48,7 +48,7 @@ class DepartmentServiceTest {
     @Nested
     class SaveDepartmentTest {
         @Test
-        void create_shouldSaveDepartment_givenDepartmentDto() {
+        void createShouldSaveDepartmentGivenDepartmentDto() {
             //given
             Teacher dean = initData.createTeacherOne(null, List.of(), List.of());
             FieldOfStudy fieldOfStudy1 = initData.createFieldOfStudyOne(null, List.of(), List.of());
@@ -125,7 +125,7 @@ class DepartmentServiceTest {
     @Nested
     class UpdateDepartmentTest {
         @Test
-        void update_shouldUpdateDepartment_givenDepartmentDto() {
+        void updateShouldUpdateDepartmentGivenDepartmentDto() {
             //given
             Teacher dean1 = initData.createTeacherOne(null, List.of(), List.of());
             Teacher dean = initData.createTeacherThree(null, List.of(), List.of());
@@ -209,7 +209,7 @@ class DepartmentServiceTest {
         }
 
         @Test
-        void update_throwsDepartmentNotFoundException_givenWrongDepartmentDto() {
+        void updateThrowsDepartmentNotFoundExceptionGivenWrongDepartmentDto() {
             //given
             Department department = initData.createDepartmentOne(null, List.of());
             DepartmentDto dto = mapper.map(department, DepartmentDto.class);
@@ -226,7 +226,7 @@ class DepartmentServiceTest {
     @Nested
     class FindAllDepartmentsTest {
         @Test
-        void fetchAll_shouldReturnAllDepartments() {
+        void fetchAllShouldReturnAllDepartments() {
             //given
             Teacher dean1 = initData.createTeacherOne(null, List.of(), List.of());
             Teacher dean2 = initData.createTeacherThree(null, List.of(), List.of());
@@ -280,7 +280,7 @@ class DepartmentServiceTest {
         }
 
         @Test
-        void fetchAllPaginated_shouldReturnAllDepartmentsPaginated_givenPageNo_pageSize_sortDir() {
+        void fetchAllPaginatedShouldReturnAllDepartmentsPaginatedGivenPageNoPageSizeSortDir() {
             //given
             int pageNo = 2;
             int pageSize = 2;
@@ -328,7 +328,7 @@ class DepartmentServiceTest {
     @Nested
     class FindDepartmentTest {
         @Test
-        void fetchById_shouldFindDepartment_givenId() {
+        void fetchByIdShouldFindDepartmentGivenId() {
             //given
             Teacher dean = initData.createTeacherOne(null, List.of(), List.of());
             FieldOfStudy fieldOfStudy1 = initData.createFieldOfStudyOne(null, List.of(), List.of());
@@ -363,7 +363,7 @@ class DepartmentServiceTest {
         }
 
         @Test
-        void fetchById_throwsDepartmentNotFoundException_givenWrongId() {
+        void fetchByIdThrowsDepartmentNotFoundExceptionGivenWrongId() {
             //given
             Long id = 10L;
             //when
@@ -378,7 +378,7 @@ class DepartmentServiceTest {
     @Nested
     class DeleteDepartmentTest {
         @Test
-        void remove_shouldDeleteDepartment_givenId() {
+        void removeShouldDeleteDepartmentGivenId() {
             //given
             Department expected = initData.createDepartmentOne(null, List.of());
             given(repository.findById(anyLong())).willReturn(Optional.of(expected));
@@ -391,7 +391,7 @@ class DepartmentServiceTest {
         }
 
         @Test
-        void remove_throwsDepartmentNotFoundException_givenWrongId() {
+        void removeThrowsDepartmentNotFoundExceptionGivenWrongId() {
             //given
             Long id = 10L;
             //when
@@ -403,7 +403,7 @@ class DepartmentServiceTest {
         }
 
         @Test
-        void removeAll_shouldDeleteAllDepartments() {
+        void removeAllShouldDeleteAllDepartments() {
             //given
             Department department1 = initData.createDepartmentOne(null, List.of());
             Department department2 = initData.createDepartmentTwo(null, List.of());
@@ -422,7 +422,7 @@ class DepartmentServiceTest {
     @Nested
     class FindDepartmentsNameTest {
         @Test
-        void findByName_returnsDepartmentsSearcherByName_givenName() {
+        void findByNameReturnsDepartmentsSearcherByNameGivenName() {
             //given
             String name = "ch";
 
@@ -481,7 +481,7 @@ class DepartmentServiceTest {
         }
 
         @Test
-        void findByNamePaginated_shouldReturnDepartmentsSearcherByNamePaginated_givenName_pageNo_pageSize_sortDir() {
+        void findByNamePaginatedShouldReturnDepartmentsSearcherByNamePaginatedGivenNamePageNoPageSizeSortDir() {
             //given
             int pageNo = 2;
             int pageSize = 2;
