@@ -1,0 +1,420 @@
+package com.example.classroom.controller;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import com.example.classroom.auth.service.UserManagementService;
+import com.example.classroom.breadcrumb.BreadcrumbService;
+import com.example.classroom.enums.UserRole;
+import com.example.classroom.model.Student;
+import com.example.classroom.model.Teacher;
+import com.example.classroom.model.User;
+import com.example.classroom.repository.StudentRepository;
+import com.example.classroom.repository.TeacherRepository;
+import com.example.classroom.repository.UserRepository;
+import com.example.classroom.service.StudentService;
+import com.example.classroom.service.TeacherService;
+import com.example.classroom.token.Token;
+import com.sun.security.auth.UserPrincipal;
+import jakarta.servlet.http.HttpServletRequest;
+
+import java.security.Principal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Optional;
+
+import org.junit.jupiter.api.Disabled;
+
+import org.junit.jupiter.api.Test;
+import org.modelmapper.ModelMapper;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.ui.ConcurrentModel;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
+
+class ProfileControllerTest {
+
+
+    /**
+     * Method under test: {@link ProfileController#getUserDetailsPage(Model, HttpServletRequest, Principal)}
+     */
+    @Test
+    @Disabled("TODO: Complete this test")
+    void testGetUserDetailsPage2() {
+
+        UserRepository userRepository = mock(UserRepository.class);
+        when(userRepository.findByEmail((String) any())).thenReturn(Optional.empty());
+        ModelMapper mapper = new ModelMapper();
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        StudentRepository repository = mock(StudentRepository.class);
+        StudentService studentService = new StudentService(repository, new ModelMapper());
+
+        TeacherRepository repository1 = mock(TeacherRepository.class);
+        UserManagementService service = new UserManagementService(userRepository, mapper, passwordEncoder, studentService,
+                new TeacherService(repository1, new ModelMapper()));
+
+        ProfileController profileController = new ProfileController(service, new BreadcrumbService());
+        ConcurrentModel model = new ConcurrentModel();
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        profileController.getUserDetailsPage(model, request, new UserPrincipal("principal"));
+    }
+
+
+    /**
+     * Method under test: {@link ProfileController#getUserDetailsPage(Model, HttpServletRequest, Principal)}
+     */
+    @Test
+    @Disabled("TODO: Complete this test")
+    void testGetUserDetailsPage4() throws UsernameNotFoundException {
+
+        UserManagementService userManagementService = mock(UserManagementService.class);
+        when(userManagementService.loadUserByUsername((String) any())).thenReturn(new User());
+        ProfileController profileController = new ProfileController(userManagementService, null);
+        ConcurrentModel model = new ConcurrentModel();
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        profileController.getUserDetailsPage(model, request, new UserPrincipal("principal"));
+    }
+
+    /**
+     * Method under test: {@link ProfileController#getUserDetailsPage(Model, HttpServletRequest, Principal)}
+     */
+    @Test
+    void testGetUserDetailsPage5() throws UsernameNotFoundException {
+
+        UserManagementService userManagementService = mock(UserManagementService.class);
+        when(userManagementService.loadUserByUsername((String) any())).thenReturn(new User());
+        BreadcrumbService breadcrumbService = mock(BreadcrumbService.class);
+        when(breadcrumbService.getBreadcrumbs((String) any())).thenReturn(new ArrayList<>());
+        ProfileController profileController = new ProfileController(userManagementService, breadcrumbService);
+        ConcurrentModel model = new ConcurrentModel();
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        assertEquals("user/user-view",
+                profileController.getUserDetailsPage(model, request, new UserPrincipal("principal")));
+        verify(userManagementService).loadUserByUsername((String) any());
+        verify(breadcrumbService).getBreadcrumbs((String) any());
+    }
+
+    /**
+     * Method under test: {@link ProfileController#getUserDetailsPage(Model, HttpServletRequest, Principal)}
+     */
+    @Test
+    @Disabled("TODO: Complete this test")
+    void testGetUserDetailsPage6() throws UsernameNotFoundException {
+
+        UserManagementService userManagementService = mock(UserManagementService.class);
+        when(userManagementService.loadUserByUsername((String) any())).thenReturn(new User());
+        BreadcrumbService breadcrumbService = mock(BreadcrumbService.class);
+        when(breadcrumbService.getBreadcrumbs((String) any())).thenReturn(new ArrayList<>());
+        ProfileController profileController = new ProfileController(userManagementService, breadcrumbService);
+        ConcurrentModel model = new ConcurrentModel();
+        profileController.getUserDetailsPage(model, null, new UserPrincipal("principal"));
+    }
+
+    /**
+     * Method under test: {@link ProfileController#getEditUserDetailsPage(Model, HttpServletRequest, Principal)}
+     */
+
+    /**
+     * Method under test: {@link ProfileController#getEditUserDetailsPage(Model, HttpServletRequest, Principal)}
+     */
+    @Test
+    @Disabled("TODO: Complete this test")
+    void testGetEditUserDetailsPage2() {
+
+        UserRepository userRepository = mock(UserRepository.class);
+        when(userRepository.findByEmail((String) any())).thenReturn(Optional.empty());
+        ModelMapper mapper = new ModelMapper();
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        StudentRepository repository = mock(StudentRepository.class);
+        StudentService studentService = new StudentService(repository, new ModelMapper());
+
+        TeacherRepository repository1 = mock(TeacherRepository.class);
+        UserManagementService service = new UserManagementService(userRepository, mapper, passwordEncoder, studentService,
+                new TeacherService(repository1, new ModelMapper()));
+
+        ProfileController profileController = new ProfileController(service, new BreadcrumbService());
+        ConcurrentModel model = new ConcurrentModel();
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        profileController.getEditUserDetailsPage(model, request, new UserPrincipal("principal"));
+    }
+    /**
+     * Method under test: {@link ProfileController#getEditUserDetailsPage(Model, HttpServletRequest, Principal)}
+     */
+    @Test
+    @Disabled("TODO: Complete this test")
+    void testGetEditUserDetailsPage4() throws UsernameNotFoundException {
+
+        UserManagementService userManagementService = mock(UserManagementService.class);
+        when(userManagementService.loadUserByUsername((String) any())).thenReturn(new User());
+        ProfileController profileController = new ProfileController(userManagementService, null);
+        ConcurrentModel model = new ConcurrentModel();
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        profileController.getEditUserDetailsPage(model, request, new UserPrincipal("principal"));
+    }
+
+    /**
+     * Method under test: {@link ProfileController#getEditUserDetailsPage(Model, HttpServletRequest, Principal)}
+     */
+    @Test
+    void testGetEditUserDetailsPage5() throws UsernameNotFoundException {
+
+
+        UserManagementService userManagementService = mock(UserManagementService.class);
+        when(userManagementService.loadUserByUsername((String) any())).thenReturn(new User());
+        BreadcrumbService breadcrumbService = mock(BreadcrumbService.class);
+        when(breadcrumbService.getBreadcrumbs((String) any())).thenReturn(new ArrayList<>());
+        ProfileController profileController = new ProfileController(userManagementService, breadcrumbService);
+        ConcurrentModel model = new ConcurrentModel();
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        assertEquals(ProfileController.USER_EDIT_TEMPLATE,
+                profileController.getEditUserDetailsPage(model, request, new UserPrincipal("principal")));
+        verify(userManagementService).loadUserByUsername((String) any());
+        verify(breadcrumbService).getBreadcrumbs((String) any());
+    }
+
+    /**
+     * Method under test: {@link ProfileController#getEditUserDetailsPage(Model, HttpServletRequest, Principal)}
+     */
+    @Test
+    @Disabled("TODO: Complete this test")
+    void testGetEditUserDetailsPage6() throws UsernameNotFoundException {
+
+
+        UserManagementService userManagementService = mock(UserManagementService.class);
+        when(userManagementService.loadUserByUsername((String) any())).thenReturn(new User());
+        BreadcrumbService breadcrumbService = mock(BreadcrumbService.class);
+        when(breadcrumbService.getBreadcrumbs((String) any())).thenReturn(new ArrayList<>());
+        ProfileController profileController = new ProfileController(userManagementService, breadcrumbService);
+        ConcurrentModel model = new ConcurrentModel();
+        profileController.getEditUserDetailsPage(model, null, new UserPrincipal("principal"));
+    }
+
+    /**
+     * Method under test: {@link ProfileController#updateUserDetails(User, BindingResult, HttpServletRequest, RedirectAttributes, Model)}
+     */
+    @Test
+    @Disabled("TODO: Complete this test")
+    void testUpdateUserDetails() {
+
+
+        UserRepository userRepository = mock(UserRepository.class);
+        when(userRepository.findByEmail((String) any())).thenReturn(Optional.of(new User()));
+        ModelMapper mapper = new ModelMapper();
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        StudentRepository repository = mock(StudentRepository.class);
+        StudentService studentService = new StudentService(repository, new ModelMapper());
+
+        TeacherRepository repository1 = mock(TeacherRepository.class);
+        UserManagementService service = new UserManagementService(userRepository, mapper, passwordEncoder, studentService,
+                new TeacherService(repository1, new ModelMapper()));
+
+        ProfileController profileController = new ProfileController(service, new BreadcrumbService());
+        User user = new User();
+        BindException result = new BindException("Target", "Object Name");
+
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        RedirectAttributesModelMap redirectAttributes = new RedirectAttributesModelMap();
+        profileController.updateUserDetails(user, result, request, redirectAttributes, new ConcurrentModel());
+    }
+
+    /**
+     * Method under test: {@link ProfileController#updateUserDetails(User, BindingResult, HttpServletRequest, RedirectAttributes, Model)}
+     */
+    @Test
+    void testUpdateUserDetails2() {
+        UserRepository userRepository = mock(UserRepository.class);
+        when(userRepository.save((User) any())).thenReturn(new User());
+        ArrayList<Token> tokens = new ArrayList<>();
+        Student student = new Student();
+        when(userRepository.findByEmail((String) any())).thenReturn(Optional.of(new User(1L, "Jane", "Doe",
+                "jane.doe@example.org", "iloveyou", UserRole.ROLE_STUDENT, tokens, student, new Teacher())));
+        ModelMapper mapper = new ModelMapper();
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        StudentRepository repository = mock(StudentRepository.class);
+        StudentService studentService = new StudentService(repository, new ModelMapper());
+
+        TeacherRepository repository1 = mock(TeacherRepository.class);
+        UserManagementService service = new UserManagementService(userRepository, mapper, passwordEncoder, studentService,
+                new TeacherService(repository1, new ModelMapper()));
+
+        ProfileController profileController = new ProfileController(service, new BreadcrumbService());
+        User user = new User();
+        BindException result = new BindException("Target", "Object Name");
+
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        RedirectAttributesModelMap redirectAttributes = new RedirectAttributesModelMap();
+        assertEquals("redirect:/dashboard/profile",
+                profileController.updateUserDetails(user, result, request, redirectAttributes, new ConcurrentModel()));
+        verify(userRepository).save((User) any());
+        verify(userRepository).findByEmail((String) any());
+    }
+
+    /**
+     * Method under test: {@link ProfileController#updateUserDetails(User, BindingResult, HttpServletRequest, RedirectAttributes, Model)}
+     */
+    @Test
+    @Disabled("TODO: Complete this test")
+    void testUpdateUserDetails3() {
+
+        UserRepository userRepository = mock(UserRepository.class);
+        when(userRepository.save((User) any())).thenReturn(new User());
+        when(userRepository.findByEmail((String) any())).thenReturn(Optional.empty());
+        ModelMapper mapper = new ModelMapper();
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        StudentRepository repository = mock(StudentRepository.class);
+        StudentService studentService = new StudentService(repository, new ModelMapper());
+
+        TeacherRepository repository1 = mock(TeacherRepository.class);
+        UserManagementService service = new UserManagementService(userRepository, mapper, passwordEncoder, studentService,
+                new TeacherService(repository1, new ModelMapper()));
+
+        ProfileController profileController = new ProfileController(service, new BreadcrumbService());
+        User user = new User();
+        BindException result = new BindException("Target", "Object Name");
+
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        RedirectAttributesModelMap redirectAttributes = new RedirectAttributesModelMap();
+        profileController.updateUserDetails(user, result, request, redirectAttributes, new ConcurrentModel());
+    }
+
+    /**
+     * Method under test: {@link ProfileController#updateUserDetails(User, BindingResult, HttpServletRequest, RedirectAttributes, Model)}
+     */
+    @Test
+    void testUpdateUserDetails4() {
+
+        UserRepository userRepository = mock(UserRepository.class);
+        when(userRepository.save((User) any())).thenReturn(new User());
+        ArrayList<Token> tokens = new ArrayList<>();
+        Student student = new Student();
+        when(userRepository.findByEmail((String) any())).thenReturn(Optional.of(new User(1L, "Jane", "Doe",
+                "jane.doe@example.org", "iloveyou", UserRole.ROLE_STUDENT, tokens, student, new Teacher())));
+        ModelMapper modelMapper = mock(ModelMapper.class);
+        doNothing().when(modelMapper).map((Object) any(), (Object) any());
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        StudentRepository repository = mock(StudentRepository.class);
+        StudentService studentService = new StudentService(repository, new ModelMapper());
+
+        TeacherRepository repository1 = mock(TeacherRepository.class);
+        UserManagementService service = new UserManagementService(userRepository, modelMapper, passwordEncoder,
+                studentService, new TeacherService(repository1, new ModelMapper()));
+
+        ProfileController profileController = new ProfileController(service, new BreadcrumbService());
+        User user = new User();
+        BindException result = new BindException("Target", "Object Name");
+
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        RedirectAttributesModelMap redirectAttributes = new RedirectAttributesModelMap();
+        assertEquals("redirect:/dashboard/profile",
+                profileController.updateUserDetails(user, result, request, redirectAttributes, new ConcurrentModel()));
+        verify(userRepository).save((User) any());
+        verify(userRepository).findByEmail((String) any());
+        verify(modelMapper).map((Object) any(), (Object) any());
+    }
+
+    /**
+     * Method under test: {@link ProfileController#updateUserDetails(User, BindingResult, HttpServletRequest, RedirectAttributes, Model)}
+     */
+    @Test
+    void testUpdateUserDetails5() {
+
+        UserManagementService userManagementService = mock(UserManagementService.class);
+        when(userManagementService.update((User) any())).thenReturn(new User());
+        ProfileController profileController = new ProfileController(userManagementService, new BreadcrumbService());
+        User user = new User();
+        BindException result = new BindException("Target", "Object Name");
+
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        RedirectAttributesModelMap redirectAttributes = new RedirectAttributesModelMap();
+        assertEquals("redirect:/dashboard/profile",
+                profileController.updateUserDetails(user, result, request, redirectAttributes, new ConcurrentModel()));
+        verify(userManagementService).update((User) any());
+    }
+
+    /**
+     * Method under test: {@link ProfileController#updateUserDetails(User, BindingResult, HttpServletRequest, RedirectAttributes, Model)}
+     */
+    @Test
+    @Disabled("TODO: Complete this test")
+    void testUpdateUserDetails6() {
+
+        UserManagementService userManagementService = mock(UserManagementService.class);
+        when(userManagementService.update((User) any())).thenReturn(new User());
+        ProfileController profileController = new ProfileController(userManagementService, new BreadcrumbService());
+        User user = new User();
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        RedirectAttributesModelMap redirectAttributes = new RedirectAttributesModelMap();
+        profileController.updateUserDetails(user, null, request, redirectAttributes, new ConcurrentModel());
+    }
+
+    /**
+     * Method under test: {@link ProfileController#updateUserDetails(User, BindingResult, HttpServletRequest, RedirectAttributes, Model)}
+     */
+    @Test
+    void testUpdateUserDetails7() {
+
+        UserManagementService userManagementService = mock(UserManagementService.class);
+        when(userManagementService.update((User) any())).thenReturn(new User());
+        ProfileController profileController = new ProfileController(userManagementService, new BreadcrumbService());
+        User user = new User();
+
+        BindException bindException = new BindException("Target", "Object Name");
+        bindException.addError(new ObjectError("editSuccess", "editSuccess"));
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        RedirectAttributesModelMap redirectAttributes = new RedirectAttributesModelMap();
+        assertEquals(ProfileController.USER_EDIT_TEMPLATE,
+                profileController.updateUserDetails(user, bindException, request, redirectAttributes, new ConcurrentModel()));
+    }
+
+    /**
+     * Method under test: {@link ProfileController#updateUserDetails(User, BindingResult, HttpServletRequest, RedirectAttributes, Model)}
+     */
+    @Test
+    void testUpdateUserDetails8() {
+
+        UserManagementService userManagementService = mock(UserManagementService.class);
+        when(userManagementService.update((User) any())).thenReturn(new User());
+        BreadcrumbService breadcrumbService = mock(BreadcrumbService.class);
+        when(breadcrumbService.getBreadcrumbs((String) any())).thenReturn(new ArrayList<>());
+        ProfileController profileController = new ProfileController(userManagementService, breadcrumbService);
+        User user = new User();
+
+        BindException bindException = new BindException("Target", "Object Name");
+        bindException.addError(new ObjectError("editSuccess", "editSuccess"));
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        RedirectAttributesModelMap redirectAttributes = new RedirectAttributesModelMap();
+        assertEquals(ProfileController.USER_EDIT_TEMPLATE,
+                profileController.updateUserDetails(user, bindException, request, redirectAttributes, new ConcurrentModel()));
+        verify(breadcrumbService).getBreadcrumbs((String) any());
+    }
+
+    /**
+     * Method under test: {@link ProfileController#updateUserDetails(User, BindingResult, HttpServletRequest, RedirectAttributes, Model)}
+     */
+    @Test
+    @Disabled("TODO: Complete this test")
+    void testUpdateUserDetails9() {
+
+        UserManagementService userManagementService = mock(UserManagementService.class);
+        when(userManagementService.update((User) any())).thenReturn(new User());
+        BreadcrumbService breadcrumbService = mock(BreadcrumbService.class);
+        when(breadcrumbService.getBreadcrumbs((String) any())).thenReturn(new ArrayList<>());
+        ProfileController profileController = new ProfileController(userManagementService, breadcrumbService);
+        User user = new User();
+
+        BindException bindException = new BindException("Target", "Object Name");
+        bindException.addError(new ObjectError("editSuccess", "editSuccess"));
+        RedirectAttributesModelMap redirectAttributes = new RedirectAttributesModelMap();
+        profileController.updateUserDetails(user, bindException, null, redirectAttributes, new ConcurrentModel());
+    }
+}

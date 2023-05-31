@@ -1,0 +1,1411 @@
+package com.example.classroom.controller;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import com.example.classroom.breadcrumb.BreadcrumbService;
+import com.example.classroom.dto.StudentDto;
+import com.example.classroom.model.FieldOfStudy;
+import com.example.classroom.model.Student;
+import com.example.classroom.model.Teacher;
+import com.example.classroom.model.User;
+import com.example.classroom.repository.FieldOfStudyRepository;
+import com.example.classroom.repository.StudentRepository;
+import com.example.classroom.repository.TeacherRepository;
+import com.example.classroom.service.FieldOfStudyService;
+import com.example.classroom.service.StudentService;
+import com.example.classroom.service.TeacherService;
+import jakarta.servlet.http.HttpServletRequest;
+
+import java.util.ArrayList;
+
+import java.util.HashSet;
+import java.util.Optional;
+
+import org.junit.jupiter.api.Disabled;
+
+import org.junit.jupiter.api.Test;
+import org.modelmapper.ModelMapper;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.ui.ConcurrentModel;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
+
+class StudentControllerTest {
+    /**
+     * Method under test: {@link StudentController#createStudent(StudentDto, BindingResult, RedirectAttributes, HttpServletRequest, Model)}
+     */
+    @Test
+    void testCreateStudent() {
+
+
+        StudentRepository studentRepository = mock(StudentRepository.class);
+        when(studentRepository.save((Student) any())).thenReturn(new Student());
+        StudentService service = new StudentService(studentRepository, new ModelMapper());
+
+        TeacherRepository repository = mock(TeacherRepository.class);
+        TeacherService teacherService = new TeacherService(repository, new ModelMapper());
+
+        FieldOfStudyRepository repository1 = mock(FieldOfStudyRepository.class);
+        FieldOfStudyService fieldOfStudyService = new FieldOfStudyService(repository1, new ModelMapper());
+
+        StudentController studentController = new StudentController(service, teacherService, fieldOfStudyService,
+                new BreadcrumbService());
+
+        StudentDto studentDto = new StudentDto();
+        studentDto.setAge(1);
+        studentDto.setEmail("jane.doe@example.org");
+        studentDto.setFieldOfStudy(new FieldOfStudy());
+        studentDto.setFirstName("Jane");
+        studentDto.setId(1L);
+        studentDto.setLastName("Doe");
+        studentDto.setTeachers(new HashSet<>());
+        studentDto.setUserDetails(new User());
+        BindException result = new BindException("Target", "Object Name");
+
+        RedirectAttributesModelMap redirectAttributes = new RedirectAttributesModelMap();
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        assertEquals(StudentController.REDIRECT_DASHBOARD_STUDENTS,
+                studentController.createStudent(studentDto, result, redirectAttributes, request, new ConcurrentModel()));
+        verify(studentRepository).save((Student) any());
+        assertEquals(1, studentDto.getFieldOfStudy().getStudents().size());
+    }
+
+    /**
+     * Method under test: {@link StudentController#createStudent(StudentDto, BindingResult, RedirectAttributes, HttpServletRequest, Model)}
+     */
+    @Test
+    @Disabled("TODO: Complete this test")
+    void testCreateStudent2() {
+
+        StudentRepository studentRepository = mock(StudentRepository.class);
+        when(studentRepository.save((Student) any())).thenReturn(null);
+        StudentService service = new StudentService(studentRepository, new ModelMapper());
+
+        TeacherRepository repository = mock(TeacherRepository.class);
+        TeacherService teacherService = new TeacherService(repository, new ModelMapper());
+
+        FieldOfStudyRepository repository1 = mock(FieldOfStudyRepository.class);
+        FieldOfStudyService fieldOfStudyService = new FieldOfStudyService(repository1, new ModelMapper());
+
+        StudentController studentController = new StudentController(service, teacherService, fieldOfStudyService,
+                new BreadcrumbService());
+
+        StudentDto studentDto = new StudentDto();
+        studentDto.setAge(1);
+        studentDto.setEmail("jane.doe@example.org");
+        studentDto.setFieldOfStudy(new FieldOfStudy());
+        studentDto.setFirstName("Jane");
+        studentDto.setId(1L);
+        studentDto.setLastName("Doe");
+        studentDto.setTeachers(new HashSet<>());
+        studentDto.setUserDetails(new User());
+        BindException result = new BindException("Target", "Object Name");
+
+        RedirectAttributesModelMap redirectAttributes = new RedirectAttributesModelMap();
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        studentController.createStudent(studentDto, result, redirectAttributes, request, new ConcurrentModel());
+    }
+
+    /**
+     * Method under test: {@link StudentController#createStudent(StudentDto, BindingResult, RedirectAttributes, HttpServletRequest, Model)}
+     */
+    @Test
+    @Disabled("TODO: Complete this test")
+    void testCreateStudent3() {
+
+
+        StudentRepository studentRepository = mock(StudentRepository.class);
+        when(studentRepository.save((Student) any())).thenReturn(new Student());
+        StudentService service = new StudentService(studentRepository, null);
+
+        TeacherRepository repository = mock(TeacherRepository.class);
+        TeacherService teacherService = new TeacherService(repository, new ModelMapper());
+
+        FieldOfStudyRepository repository1 = mock(FieldOfStudyRepository.class);
+        FieldOfStudyService fieldOfStudyService = new FieldOfStudyService(repository1, new ModelMapper());
+
+        StudentController studentController = new StudentController(service, teacherService, fieldOfStudyService,
+                new BreadcrumbService());
+
+        StudentDto studentDto = new StudentDto();
+        studentDto.setAge(1);
+        studentDto.setEmail("jane.doe@example.org");
+        studentDto.setFieldOfStudy(new FieldOfStudy());
+        studentDto.setFirstName("Jane");
+        studentDto.setId(1L);
+        studentDto.setLastName("Doe");
+        studentDto.setTeachers(new HashSet<>());
+        studentDto.setUserDetails(new User());
+        BindException result = new BindException("Target", "Object Name");
+
+        RedirectAttributesModelMap redirectAttributes = new RedirectAttributesModelMap();
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        studentController.createStudent(studentDto, result, redirectAttributes, request, new ConcurrentModel());
+    }
+
+    /**
+     * Method under test: {@link StudentController#createStudent(StudentDto, BindingResult, RedirectAttributes, HttpServletRequest, Model)}
+     */
+    @Test
+    @Disabled("TODO: Complete this test")
+    void testCreateStudent4() {
+
+
+        StudentRepository studentRepository = mock(StudentRepository.class);
+        when(studentRepository.save((Student) any())).thenReturn(new Student());
+        ModelMapper modelMapper = mock(ModelMapper.class);
+        when(modelMapper.map((Object) any(), (Class<Student>) any())).thenReturn(null);
+        StudentService service = new StudentService(studentRepository, modelMapper);
+
+        TeacherRepository repository = mock(TeacherRepository.class);
+        TeacherService teacherService = new TeacherService(repository, new ModelMapper());
+
+        FieldOfStudyRepository repository1 = mock(FieldOfStudyRepository.class);
+        FieldOfStudyService fieldOfStudyService = new FieldOfStudyService(repository1, new ModelMapper());
+
+        StudentController studentController = new StudentController(service, teacherService, fieldOfStudyService,
+                new BreadcrumbService());
+
+        StudentDto studentDto = new StudentDto();
+        studentDto.setAge(1);
+        studentDto.setEmail("jane.doe@example.org");
+        studentDto.setFieldOfStudy(new FieldOfStudy());
+        studentDto.setFirstName("Jane");
+        studentDto.setId(1L);
+        studentDto.setLastName("Doe");
+        studentDto.setTeachers(new HashSet<>());
+        studentDto.setUserDetails(new User());
+        BindException result = new BindException("Target", "Object Name");
+
+        RedirectAttributesModelMap redirectAttributes = new RedirectAttributesModelMap();
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        studentController.createStudent(studentDto, result, redirectAttributes, request, new ConcurrentModel());
+    }
+
+    /**
+     * Method under test: {@link StudentController#createStudent(StudentDto, BindingResult, RedirectAttributes, HttpServletRequest, Model)}
+     */
+    @Test
+    void testCreateStudent5() {
+
+        StudentDto studentDto = new StudentDto();
+        studentDto.setAge(1);
+        studentDto.setEmail("jane.doe@example.org");
+        studentDto.setFieldOfStudy(new FieldOfStudy());
+        studentDto.setFirstName("Jane");
+        studentDto.setId(1L);
+        studentDto.setLastName("Doe");
+        studentDto.setTeachers(new HashSet<>());
+        studentDto.setUserDetails(new User());
+        StudentService studentService = mock(StudentService.class);
+        when(studentService.create((StudentDto) any())).thenReturn(studentDto);
+        TeacherRepository repository = mock(TeacherRepository.class);
+        TeacherService teacherService = new TeacherService(repository, new ModelMapper());
+
+        FieldOfStudyRepository repository1 = mock(FieldOfStudyRepository.class);
+        FieldOfStudyService fieldOfStudyService = new FieldOfStudyService(repository1, new ModelMapper());
+
+        StudentController studentController = new StudentController(studentService, teacherService, fieldOfStudyService,
+                new BreadcrumbService());
+
+        StudentDto studentDto1 = new StudentDto();
+        studentDto1.setAge(1);
+        studentDto1.setEmail("jane.doe@example.org");
+        studentDto1.setFieldOfStudy(new FieldOfStudy());
+        studentDto1.setFirstName("Jane");
+        studentDto1.setId(1L);
+        studentDto1.setLastName("Doe");
+        studentDto1.setTeachers(new HashSet<>());
+        studentDto1.setUserDetails(new User());
+        BindException result = new BindException("Target", "Object Name");
+
+        RedirectAttributesModelMap redirectAttributes = new RedirectAttributesModelMap();
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        assertEquals(StudentController.REDIRECT_DASHBOARD_STUDENTS,
+                studentController.createStudent(studentDto1, result, redirectAttributes, request, new ConcurrentModel()));
+        verify(studentService).create((StudentDto) any());
+    }
+
+    /**
+     * Method under test: {@link StudentController#createStudent(StudentDto, BindingResult, RedirectAttributes, HttpServletRequest, Model)}
+     */
+    @Test
+    @Disabled("TODO: Complete this test")
+    void testCreateStudent6() {
+
+        StudentDto studentDto = new StudentDto();
+        studentDto.setAge(1);
+        studentDto.setEmail("jane.doe@example.org");
+        studentDto.setFieldOfStudy(new FieldOfStudy());
+        studentDto.setFirstName("Jane");
+        studentDto.setId(1L);
+        studentDto.setLastName("Doe");
+        studentDto.setTeachers(new HashSet<>());
+        studentDto.setUserDetails(new User());
+        StudentService studentService = mock(StudentService.class);
+        when(studentService.create((StudentDto) any())).thenReturn(studentDto);
+        TeacherRepository repository = mock(TeacherRepository.class);
+        TeacherService teacherService = new TeacherService(repository, new ModelMapper());
+
+        FieldOfStudyRepository repository1 = mock(FieldOfStudyRepository.class);
+        FieldOfStudyService fieldOfStudyService = new FieldOfStudyService(repository1, new ModelMapper());
+
+        StudentController studentController = new StudentController(studentService, teacherService, fieldOfStudyService,
+                new BreadcrumbService());
+
+        StudentDto studentDto1 = new StudentDto();
+        studentDto1.setAge(1);
+        studentDto1.setEmail("jane.doe@example.org");
+        studentDto1.setFieldOfStudy(new FieldOfStudy());
+        studentDto1.setFirstName("Jane");
+        studentDto1.setId(1L);
+        studentDto1.setLastName("Doe");
+        studentDto1.setTeachers(new HashSet<>());
+        studentDto1.setUserDetails(new User());
+        RedirectAttributesModelMap redirectAttributes = new RedirectAttributesModelMap();
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        studentController.createStudent(studentDto1, null, redirectAttributes, request, new ConcurrentModel());
+    }
+
+    /**
+     * Method under test: {@link StudentController#createStudent(StudentDto, BindingResult, RedirectAttributes, HttpServletRequest, Model)}
+     */
+    @Test
+    void testCreateStudent7() {
+
+        StudentDto studentDto = new StudentDto();
+        studentDto.setAge(1);
+        studentDto.setEmail("jane.doe@example.org");
+        studentDto.setFieldOfStudy(new FieldOfStudy());
+        studentDto.setFirstName("Jane");
+        studentDto.setId(1L);
+        studentDto.setLastName("Doe");
+        studentDto.setTeachers(new HashSet<>());
+        studentDto.setUserDetails(new User());
+        StudentService studentService = mock(StudentService.class);
+        when(studentService.create((StudentDto) any())).thenReturn(studentDto);
+        TeacherRepository teacherRepository = mock(TeacherRepository.class);
+        when(teacherRepository.findAll()).thenReturn(new ArrayList<>());
+        TeacherService teacherService = new TeacherService(teacherRepository, new ModelMapper());
+
+        FieldOfStudyRepository fieldOfStudyRepository = mock(FieldOfStudyRepository.class);
+        when(fieldOfStudyRepository.findAll()).thenReturn(new ArrayList<>());
+        FieldOfStudyService fieldOfStudyService = new FieldOfStudyService(fieldOfStudyRepository, new ModelMapper());
+
+        StudentController studentController = new StudentController(studentService, teacherService, fieldOfStudyService,
+                new BreadcrumbService());
+
+        StudentDto studentDto1 = new StudentDto();
+        studentDto1.setAge(1);
+        studentDto1.setEmail("jane.doe@example.org");
+        studentDto1.setFieldOfStudy(new FieldOfStudy());
+        studentDto1.setFirstName("Jane");
+        studentDto1.setId(1L);
+        studentDto1.setLastName("Doe");
+        studentDto1.setTeachers(new HashSet<>());
+        studentDto1.setUserDetails(new User());
+
+        BindException bindException = new BindException("Target", "Object Name");
+        bindException.addError(new ObjectError("success", "success"));
+        RedirectAttributesModelMap redirectAttributes = new RedirectAttributesModelMap();
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        assertEquals("student/student-create-form", studentController.createStudent(studentDto1, bindException,
+                redirectAttributes, request, new ConcurrentModel()));
+        verify(teacherRepository).findAll();
+        verify(fieldOfStudyRepository).findAll();
+    }
+
+    /**
+     * Method under test: {@link StudentController#createStudent(StudentDto, BindingResult, RedirectAttributes, HttpServletRequest, Model)}
+     */
+    @Test
+    void testCreateStudent8() {
+
+        StudentDto studentDto = new StudentDto();
+        studentDto.setAge(1);
+        studentDto.setEmail("jane.doe@example.org");
+        studentDto.setFieldOfStudy(new FieldOfStudy());
+        studentDto.setFirstName("Jane");
+        studentDto.setId(1L);
+        studentDto.setLastName("Doe");
+        studentDto.setTeachers(new HashSet<>());
+        studentDto.setUserDetails(new User());
+        StudentService studentService = mock(StudentService.class);
+        when(studentService.create((StudentDto) any())).thenReturn(studentDto);
+
+        ArrayList<Teacher> teacherList = new ArrayList<>();
+        teacherList.add(new Teacher());
+        TeacherRepository teacherRepository = mock(TeacherRepository.class);
+        when(teacherRepository.findAll()).thenReturn(teacherList);
+        TeacherService teacherService = new TeacherService(teacherRepository, new ModelMapper());
+
+        FieldOfStudyRepository fieldOfStudyRepository = mock(FieldOfStudyRepository.class);
+        when(fieldOfStudyRepository.findAll()).thenReturn(new ArrayList<>());
+        FieldOfStudyService fieldOfStudyService = new FieldOfStudyService(fieldOfStudyRepository, new ModelMapper());
+
+        StudentController studentController = new StudentController(studentService, teacherService, fieldOfStudyService,
+                new BreadcrumbService());
+
+        StudentDto studentDto1 = new StudentDto();
+        studentDto1.setAge(1);
+        studentDto1.setEmail("jane.doe@example.org");
+        studentDto1.setFieldOfStudy(new FieldOfStudy());
+        studentDto1.setFirstName("Jane");
+        studentDto1.setId(1L);
+        studentDto1.setLastName("Doe");
+        studentDto1.setTeachers(new HashSet<>());
+        studentDto1.setUserDetails(new User());
+
+        BindException bindException = new BindException("Target", "Object Name");
+        bindException.addError(new ObjectError("success", "success"));
+        RedirectAttributesModelMap redirectAttributes = new RedirectAttributesModelMap();
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        assertEquals("student/student-create-form", studentController.createStudent(studentDto1, bindException,
+                redirectAttributes, request, new ConcurrentModel()));
+        verify(teacherRepository).findAll();
+        verify(fieldOfStudyRepository).findAll();
+    }
+
+    /**
+     * Method under test: {@link StudentController#createStudent(StudentDto, BindingResult, RedirectAttributes, HttpServletRequest, Model)}
+     */
+    @Test
+    void testCreateStudent9() {
+
+        StudentDto studentDto = new StudentDto();
+        studentDto.setAge(1);
+        studentDto.setEmail("jane.doe@example.org");
+        studentDto.setFieldOfStudy(new FieldOfStudy());
+        studentDto.setFirstName("Jane");
+        studentDto.setId(1L);
+        studentDto.setLastName("Doe");
+        studentDto.setTeachers(new HashSet<>());
+        studentDto.setUserDetails(new User());
+        StudentService studentService = mock(StudentService.class);
+        when(studentService.create((StudentDto) any())).thenReturn(studentDto);
+
+        ArrayList<Teacher> teacherList = new ArrayList<>();
+        teacherList.add(new Teacher());
+        teacherList.add(new Teacher());
+        TeacherRepository teacherRepository = mock(TeacherRepository.class);
+        when(teacherRepository.findAll()).thenReturn(teacherList);
+        TeacherService teacherService = new TeacherService(teacherRepository, new ModelMapper());
+
+        FieldOfStudyRepository fieldOfStudyRepository = mock(FieldOfStudyRepository.class);
+        when(fieldOfStudyRepository.findAll()).thenReturn(new ArrayList<>());
+        FieldOfStudyService fieldOfStudyService = new FieldOfStudyService(fieldOfStudyRepository, new ModelMapper());
+
+        StudentController studentController = new StudentController(studentService, teacherService, fieldOfStudyService,
+                new BreadcrumbService());
+
+        StudentDto studentDto1 = new StudentDto();
+        studentDto1.setAge(1);
+        studentDto1.setEmail("jane.doe@example.org");
+        studentDto1.setFieldOfStudy(new FieldOfStudy());
+        studentDto1.setFirstName("Jane");
+        studentDto1.setId(1L);
+        studentDto1.setLastName("Doe");
+        studentDto1.setTeachers(new HashSet<>());
+        studentDto1.setUserDetails(new User());
+
+        BindException bindException = new BindException("Target", "Object Name");
+        bindException.addError(new ObjectError("success", "success"));
+        RedirectAttributesModelMap redirectAttributes = new RedirectAttributesModelMap();
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        assertEquals("student/student-create-form", studentController.createStudent(studentDto1, bindException,
+                redirectAttributes, request, new ConcurrentModel()));
+        verify(teacherRepository).findAll();
+        verify(fieldOfStudyRepository).findAll();
+    }
+
+    /**
+     * Method under test: {@link StudentController#createStudent(StudentDto, BindingResult, RedirectAttributes, HttpServletRequest, Model)}
+     */
+    @Test
+    void testCreateStudent10() {
+        StudentDto studentDto = new StudentDto();
+        studentDto.setAge(1);
+        studentDto.setEmail("jane.doe@example.org");
+        studentDto.setFieldOfStudy(new FieldOfStudy());
+        studentDto.setFirstName("Jane");
+        studentDto.setId(1L);
+        studentDto.setLastName("Doe");
+        studentDto.setTeachers(new HashSet<>());
+        studentDto.setUserDetails(new User());
+        StudentService studentService = mock(StudentService.class);
+        when(studentService.create((StudentDto) any())).thenReturn(studentDto);
+        TeacherService teacherService = mock(TeacherService.class);
+        when(teacherService.fetchAll()).thenReturn(new ArrayList<>());
+        FieldOfStudyRepository fieldOfStudyRepository = mock(FieldOfStudyRepository.class);
+        when(fieldOfStudyRepository.findAll()).thenReturn(new ArrayList<>());
+        FieldOfStudyService fieldOfStudyService = new FieldOfStudyService(fieldOfStudyRepository, new ModelMapper());
+
+        StudentController studentController = new StudentController(studentService, teacherService, fieldOfStudyService,
+                new BreadcrumbService());
+
+        StudentDto studentDto1 = new StudentDto();
+        studentDto1.setAge(1);
+        studentDto1.setEmail("jane.doe@example.org");
+        studentDto1.setFieldOfStudy(new FieldOfStudy());
+        studentDto1.setFirstName("Jane");
+        studentDto1.setId(1L);
+        studentDto1.setLastName("Doe");
+        studentDto1.setTeachers(new HashSet<>());
+        studentDto1.setUserDetails(new User());
+
+        BindException bindException = new BindException("Target", "Object Name");
+        bindException.addError(new ObjectError("success", "success"));
+        RedirectAttributesModelMap redirectAttributes = new RedirectAttributesModelMap();
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        assertEquals("student/student-create-form", studentController.createStudent(studentDto1, bindException,
+                redirectAttributes, request, new ConcurrentModel()));
+        verify(teacherService).fetchAll();
+        verify(fieldOfStudyRepository).findAll();
+    }
+
+    /**
+     * Method under test: {@link StudentController#createStudent(StudentDto, BindingResult, RedirectAttributes, HttpServletRequest, Model)}
+     */
+    @Test
+    void testCreateStudent11() {
+        StudentDto studentDto = new StudentDto();
+        studentDto.setAge(1);
+        studentDto.setEmail("jane.doe@example.org");
+        studentDto.setFieldOfStudy(new FieldOfStudy());
+        studentDto.setFirstName("Jane");
+        studentDto.setId(1L);
+        studentDto.setLastName("Doe");
+        studentDto.setTeachers(new HashSet<>());
+        studentDto.setUserDetails(new User());
+        StudentService studentService = mock(StudentService.class);
+        when(studentService.create((StudentDto) any())).thenReturn(studentDto);
+        TeacherService teacherService = mock(TeacherService.class);
+        when(teacherService.fetchAll()).thenReturn(new ArrayList<>());
+
+        ArrayList<FieldOfStudy> fieldOfStudyList = new ArrayList<>();
+        fieldOfStudyList.add(new FieldOfStudy());
+        FieldOfStudyRepository fieldOfStudyRepository = mock(FieldOfStudyRepository.class);
+        when(fieldOfStudyRepository.findAll()).thenReturn(fieldOfStudyList);
+        FieldOfStudyService fieldOfStudyService = new FieldOfStudyService(fieldOfStudyRepository, new ModelMapper());
+
+        StudentController studentController = new StudentController(studentService, teacherService, fieldOfStudyService,
+                new BreadcrumbService());
+
+        StudentDto studentDto1 = new StudentDto();
+        studentDto1.setAge(1);
+        studentDto1.setEmail("jane.doe@example.org");
+        studentDto1.setFieldOfStudy(new FieldOfStudy());
+        studentDto1.setFirstName("Jane");
+        studentDto1.setId(1L);
+        studentDto1.setLastName("Doe");
+        studentDto1.setTeachers(new HashSet<>());
+        studentDto1.setUserDetails(new User());
+
+        BindException bindException = new BindException("Target", "Object Name");
+        bindException.addError(new ObjectError("success", "success"));
+        RedirectAttributesModelMap redirectAttributes = new RedirectAttributesModelMap();
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        assertEquals("student/student-create-form", studentController.createStudent(studentDto1, bindException,
+                redirectAttributes, request, new ConcurrentModel()));
+        verify(teacherService).fetchAll();
+        verify(fieldOfStudyRepository).findAll();
+    }
+
+    /**
+     * Method under test: {@link StudentController#createStudent(StudentDto, BindingResult, RedirectAttributes, HttpServletRequest, Model)}
+     */
+    @Test
+    void testCreateStudent12() {
+        StudentDto studentDto = new StudentDto();
+        studentDto.setAge(1);
+        studentDto.setEmail("jane.doe@example.org");
+        studentDto.setFieldOfStudy(new FieldOfStudy());
+        studentDto.setFirstName("Jane");
+        studentDto.setId(1L);
+        studentDto.setLastName("Doe");
+        studentDto.setTeachers(new HashSet<>());
+        studentDto.setUserDetails(new User());
+        StudentService studentService = mock(StudentService.class);
+        when(studentService.create((StudentDto) any())).thenReturn(studentDto);
+        TeacherService teacherService = mock(TeacherService.class);
+        when(teacherService.fetchAll()).thenReturn(new ArrayList<>());
+
+        ArrayList<FieldOfStudy> fieldOfStudyList = new ArrayList<>();
+        fieldOfStudyList.add(new FieldOfStudy());
+        fieldOfStudyList.add(new FieldOfStudy());
+        FieldOfStudyRepository fieldOfStudyRepository = mock(FieldOfStudyRepository.class);
+        when(fieldOfStudyRepository.findAll()).thenReturn(fieldOfStudyList);
+        FieldOfStudyService fieldOfStudyService = new FieldOfStudyService(fieldOfStudyRepository, new ModelMapper());
+
+        StudentController studentController = new StudentController(studentService, teacherService, fieldOfStudyService,
+                new BreadcrumbService());
+
+        StudentDto studentDto1 = new StudentDto();
+        studentDto1.setAge(1);
+        studentDto1.setEmail("jane.doe@example.org");
+        studentDto1.setFieldOfStudy(new FieldOfStudy());
+        studentDto1.setFirstName("Jane");
+        studentDto1.setId(1L);
+        studentDto1.setLastName("Doe");
+        studentDto1.setTeachers(new HashSet<>());
+        studentDto1.setUserDetails(new User());
+
+        BindException bindException = new BindException("Target", "Object Name");
+        bindException.addError(new ObjectError("success", "success"));
+        RedirectAttributesModelMap redirectAttributes = new RedirectAttributesModelMap();
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        assertEquals("student/student-create-form", studentController.createStudent(studentDto1, bindException,
+                redirectAttributes, request, new ConcurrentModel()));
+        verify(teacherService).fetchAll();
+        verify(fieldOfStudyRepository).findAll();
+    }
+
+    /**
+     * Method under test: {@link StudentController#createStudent(StudentDto, BindingResult, RedirectAttributes, HttpServletRequest, Model)}
+     */
+    @Test
+    @Disabled("TODO: Complete this test")
+    void testCreateStudent13() {
+
+        StudentDto studentDto = new StudentDto();
+        studentDto.setAge(1);
+        studentDto.setEmail("jane.doe@example.org");
+        studentDto.setFieldOfStudy(new FieldOfStudy());
+        studentDto.setFirstName("Jane");
+        studentDto.setId(1L);
+        studentDto.setLastName("Doe");
+        studentDto.setTeachers(new HashSet<>());
+        studentDto.setUserDetails(new User());
+        StudentService studentService = mock(StudentService.class);
+        when(studentService.create((StudentDto) any())).thenReturn(studentDto);
+        TeacherService teacherService = mock(TeacherService.class);
+        when(teacherService.fetchAll()).thenReturn(new ArrayList<>());
+        StudentController studentController = new StudentController(studentService, teacherService, null,
+                new BreadcrumbService());
+
+        StudentDto studentDto1 = new StudentDto();
+        studentDto1.setAge(1);
+        studentDto1.setEmail("jane.doe@example.org");
+        studentDto1.setFieldOfStudy(new FieldOfStudy());
+        studentDto1.setFirstName("Jane");
+        studentDto1.setId(1L);
+        studentDto1.setLastName("Doe");
+        studentDto1.setTeachers(new HashSet<>());
+        studentDto1.setUserDetails(new User());
+
+        BindException bindException = new BindException("Target", "Object Name");
+        bindException.addError(new ObjectError("success", "success"));
+        RedirectAttributesModelMap redirectAttributes = new RedirectAttributesModelMap();
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        studentController.createStudent(studentDto1, bindException, redirectAttributes, request, new ConcurrentModel());
+    }
+
+    /**
+     * Method under test: {@link StudentController#createStudent(StudentDto, BindingResult, RedirectAttributes, HttpServletRequest, Model)}
+     */
+    @Test
+    void testCreateStudent14() {
+
+        StudentDto studentDto = new StudentDto();
+        studentDto.setAge(1);
+        studentDto.setEmail("jane.doe@example.org");
+        studentDto.setFieldOfStudy(new FieldOfStudy());
+        studentDto.setFirstName("Jane");
+        studentDto.setId(1L);
+        studentDto.setLastName("Doe");
+        studentDto.setTeachers(new HashSet<>());
+        studentDto.setUserDetails(new User());
+        StudentService studentService = mock(StudentService.class);
+        when(studentService.create((StudentDto) any())).thenReturn(studentDto);
+        TeacherService teacherService = mock(TeacherService.class);
+        when(teacherService.fetchAll()).thenReturn(new ArrayList<>());
+        FieldOfStudyService fieldOfStudyService = mock(FieldOfStudyService.class);
+        when(fieldOfStudyService.fetchAll()).thenReturn(new ArrayList<>());
+        StudentController studentController = new StudentController(studentService, teacherService, fieldOfStudyService,
+                new BreadcrumbService());
+
+        StudentDto studentDto1 = new StudentDto();
+        studentDto1.setAge(1);
+        studentDto1.setEmail("jane.doe@example.org");
+        studentDto1.setFieldOfStudy(new FieldOfStudy());
+        studentDto1.setFirstName("Jane");
+        studentDto1.setId(1L);
+        studentDto1.setLastName("Doe");
+        studentDto1.setTeachers(new HashSet<>());
+        studentDto1.setUserDetails(new User());
+
+        BindException bindException = new BindException("Target", "Object Name");
+        bindException.addError(new ObjectError("success", "success"));
+        RedirectAttributesModelMap redirectAttributes = new RedirectAttributesModelMap();
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        assertEquals("student/student-create-form", studentController.createStudent(studentDto1, bindException,
+                redirectAttributes, request, new ConcurrentModel()));
+        verify(teacherService).fetchAll();
+        verify(fieldOfStudyService).fetchAll();
+    }
+
+    /**
+     * Method under test: {@link StudentController#createStudent(StudentDto, BindingResult, RedirectAttributes, HttpServletRequest, Model)}
+     */
+    @Test
+    @Disabled("TODO: Complete this test")
+    void testCreateStudent15() {
+
+        StudentDto studentDto = new StudentDto();
+        studentDto.setAge(1);
+        studentDto.setEmail("jane.doe@example.org");
+        studentDto.setFieldOfStudy(new FieldOfStudy());
+        studentDto.setFirstName("Jane");
+        studentDto.setId(1L);
+        studentDto.setLastName("Doe");
+        studentDto.setTeachers(new HashSet<>());
+        studentDto.setUserDetails(new User());
+        StudentService studentService = mock(StudentService.class);
+        when(studentService.create((StudentDto) any())).thenReturn(studentDto);
+        TeacherService teacherService = mock(TeacherService.class);
+        when(teacherService.fetchAll()).thenReturn(new ArrayList<>());
+        FieldOfStudyService fieldOfStudyService = mock(FieldOfStudyService.class);
+        when(fieldOfStudyService.fetchAll()).thenReturn(new ArrayList<>());
+        StudentController studentController = new StudentController(studentService, teacherService, fieldOfStudyService,
+                null);
+
+        StudentDto studentDto1 = new StudentDto();
+        studentDto1.setAge(1);
+        studentDto1.setEmail("jane.doe@example.org");
+        studentDto1.setFieldOfStudy(new FieldOfStudy());
+        studentDto1.setFirstName("Jane");
+        studentDto1.setId(1L);
+        studentDto1.setLastName("Doe");
+        studentDto1.setTeachers(new HashSet<>());
+        studentDto1.setUserDetails(new User());
+
+        BindException bindException = new BindException("Target", "Object Name");
+        bindException.addError(new ObjectError("success", "success"));
+        RedirectAttributesModelMap redirectAttributes = new RedirectAttributesModelMap();
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        studentController.createStudent(studentDto1, bindException, redirectAttributes, request, new ConcurrentModel());
+    }
+
+    /**
+     * Method under test: {@link StudentController#createStudent(StudentDto, BindingResult, RedirectAttributes, HttpServletRequest, Model)}
+     */
+    @Test
+    void testCreateStudent16() {
+        StudentDto studentDto = new StudentDto();
+        studentDto.setAge(1);
+        studentDto.setEmail("jane.doe@example.org");
+        studentDto.setFieldOfStudy(new FieldOfStudy());
+        studentDto.setFirstName("Jane");
+        studentDto.setId(1L);
+        studentDto.setLastName("Doe");
+        studentDto.setTeachers(new HashSet<>());
+        studentDto.setUserDetails(new User());
+        StudentService studentService = mock(StudentService.class);
+        when(studentService.create((StudentDto) any())).thenReturn(studentDto);
+        TeacherService teacherService = mock(TeacherService.class);
+        when(teacherService.fetchAll()).thenReturn(new ArrayList<>());
+        FieldOfStudyService fieldOfStudyService = mock(FieldOfStudyService.class);
+        when(fieldOfStudyService.fetchAll()).thenReturn(new ArrayList<>());
+        BreadcrumbService breadcrumbService = mock(BreadcrumbService.class);
+        when(breadcrumbService.getBreadcrumbs((String) any())).thenReturn(new ArrayList<>());
+        StudentController studentController = new StudentController(studentService, teacherService, fieldOfStudyService,
+                breadcrumbService);
+
+        StudentDto studentDto1 = new StudentDto();
+        studentDto1.setAge(1);
+        studentDto1.setEmail("jane.doe@example.org");
+        studentDto1.setFieldOfStudy(new FieldOfStudy());
+        studentDto1.setFirstName("Jane");
+        studentDto1.setId(1L);
+        studentDto1.setLastName("Doe");
+        studentDto1.setTeachers(new HashSet<>());
+        studentDto1.setUserDetails(new User());
+
+        BindException bindException = new BindException("Target", "Object Name");
+        bindException.addError(new ObjectError("success", "success"));
+        RedirectAttributesModelMap redirectAttributes = new RedirectAttributesModelMap();
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        assertEquals("student/student-create-form", studentController.createStudent(studentDto1, bindException,
+                redirectAttributes, request, new ConcurrentModel()));
+        verify(teacherService).fetchAll();
+        verify(fieldOfStudyService).fetchAll();
+        verify(breadcrumbService).getBreadcrumbs((String) any());
+    }
+
+    /**
+     * Method under test: {@link StudentController#createStudent(StudentDto, BindingResult, RedirectAttributes, HttpServletRequest, Model)}
+     */
+    @Test
+    @Disabled("TODO: Complete this test")
+    void testCreateStudent17() {
+
+        StudentDto studentDto = new StudentDto();
+        studentDto.setAge(1);
+        studentDto.setEmail("jane.doe@example.org");
+        studentDto.setFieldOfStudy(new FieldOfStudy());
+        studentDto.setFirstName("Jane");
+        studentDto.setId(1L);
+        studentDto.setLastName("Doe");
+        studentDto.setTeachers(new HashSet<>());
+        studentDto.setUserDetails(new User());
+        StudentService studentService = mock(StudentService.class);
+        when(studentService.create((StudentDto) any())).thenReturn(studentDto);
+        TeacherService teacherService = mock(TeacherService.class);
+        when(teacherService.fetchAll()).thenReturn(new ArrayList<>());
+        FieldOfStudyService fieldOfStudyService = mock(FieldOfStudyService.class);
+        when(fieldOfStudyService.fetchAll()).thenReturn(new ArrayList<>());
+        BreadcrumbService breadcrumbService = mock(BreadcrumbService.class);
+        when(breadcrumbService.getBreadcrumbs((String) any())).thenReturn(new ArrayList<>());
+        StudentController studentController = new StudentController(studentService, teacherService, fieldOfStudyService,
+                breadcrumbService);
+
+        StudentDto studentDto1 = new StudentDto();
+        studentDto1.setAge(1);
+        studentDto1.setEmail("jane.doe@example.org");
+        studentDto1.setFieldOfStudy(new FieldOfStudy());
+        studentDto1.setFirstName("Jane");
+        studentDto1.setId(1L);
+        studentDto1.setLastName("Doe");
+        studentDto1.setTeachers(new HashSet<>());
+        studentDto1.setUserDetails(new User());
+
+        BindException bindException = new BindException("Target", "Object Name");
+        bindException.addError(new ObjectError("success", "success"));
+        RedirectAttributesModelMap redirectAttributes = new RedirectAttributesModelMap();
+        studentController.createStudent(studentDto1, bindException, redirectAttributes, null, new ConcurrentModel());
+    }
+
+    /**
+     * Method under test: {@link StudentController#editStudentForm(Long, HttpServletRequest, Model)}
+     */
+    @Test
+    void testEditStudentForm() {
+        StudentRepository studentRepository = mock(StudentRepository.class);
+        when(studentRepository.findById((Long) any())).thenReturn(Optional.of(new Student()));
+        StudentService service = new StudentService(studentRepository, new ModelMapper());
+
+        TeacherRepository teacherRepository = mock(TeacherRepository.class);
+        when(teacherRepository.findAll()).thenReturn(new ArrayList<>());
+        TeacherService teacherService = new TeacherService(teacherRepository, new ModelMapper());
+
+        FieldOfStudyRepository fieldOfStudyRepository = mock(FieldOfStudyRepository.class);
+        when(fieldOfStudyRepository.findAll()).thenReturn(new ArrayList<>());
+        FieldOfStudyService fieldOfStudyService = new FieldOfStudyService(fieldOfStudyRepository, new ModelMapper());
+
+        StudentController studentController = new StudentController(service, teacherService, fieldOfStudyService,
+                new BreadcrumbService());
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        assertEquals("student/student-edit-form", studentController.editStudentForm(1L, request, new ConcurrentModel()));
+        verify(studentRepository).findById((Long) any());
+        verify(teacherRepository).findAll();
+        verify(fieldOfStudyRepository).findAll();
+    }
+
+    /**
+     * Method under test: {@link StudentController#editStudentForm(Long, HttpServletRequest, Model)}
+     */
+    @Test
+    @Disabled("TODO: Complete this test")
+    void testEditStudentForm2() {
+        StudentRepository studentRepository = mock(StudentRepository.class);
+        when(studentRepository.findById((Long) any())).thenReturn(Optional.empty());
+        StudentService service = new StudentService(studentRepository, new ModelMapper());
+
+        TeacherRepository teacherRepository = mock(TeacherRepository.class);
+        when(teacherRepository.findAll()).thenReturn(new ArrayList<>());
+        TeacherService teacherService = new TeacherService(teacherRepository, new ModelMapper());
+
+        FieldOfStudyRepository fieldOfStudyRepository = mock(FieldOfStudyRepository.class);
+        when(fieldOfStudyRepository.findAll()).thenReturn(new ArrayList<>());
+        FieldOfStudyService fieldOfStudyService = new FieldOfStudyService(fieldOfStudyRepository, new ModelMapper());
+
+        StudentController studentController = new StudentController(service, teacherService, fieldOfStudyService,
+                new BreadcrumbService());
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        studentController.editStudentForm(1L, request, new ConcurrentModel());
+    }
+
+    /**
+     * Method under test: {@link StudentController#editStudentForm(Long, HttpServletRequest, Model)}
+     */
+    @Test
+    @Disabled("TODO: Complete this test")
+    void testEditStudentForm3() {
+        StudentRepository studentRepository = mock(StudentRepository.class);
+        when(studentRepository.findById((Long) any())).thenReturn(Optional.of(new Student()));
+        StudentService service = new StudentService(studentRepository, null);
+
+        TeacherRepository teacherRepository = mock(TeacherRepository.class);
+        when(teacherRepository.findAll()).thenReturn(new ArrayList<>());
+        TeacherService teacherService = new TeacherService(teacherRepository, new ModelMapper());
+
+        FieldOfStudyRepository fieldOfStudyRepository = mock(FieldOfStudyRepository.class);
+        when(fieldOfStudyRepository.findAll()).thenReturn(new ArrayList<>());
+        FieldOfStudyService fieldOfStudyService = new FieldOfStudyService(fieldOfStudyRepository, new ModelMapper());
+
+        StudentController studentController = new StudentController(service, teacherService, fieldOfStudyService,
+                new BreadcrumbService());
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        studentController.editStudentForm(1L, request, new ConcurrentModel());
+    }
+
+    /**
+     * Method under test: {@link StudentController#editStudentForm(Long, HttpServletRequest, Model)}
+     */
+    @Test
+    void testEditStudentForm4() {
+
+        StudentRepository studentRepository = mock(StudentRepository.class);
+        when(studentRepository.findById((Long) any())).thenReturn(Optional.of(new Student()));
+
+        StudentDto studentDto = new StudentDto();
+        studentDto.setAge(1);
+        studentDto.setEmail("jane.doe@example.org");
+        studentDto.setFieldOfStudy(new FieldOfStudy());
+        studentDto.setFirstName("Jane");
+        studentDto.setId(1L);
+        studentDto.setLastName("Doe");
+        studentDto.setTeachers(new HashSet<>());
+        studentDto.setUserDetails(new User());
+        ModelMapper modelMapper = mock(ModelMapper.class);
+        when(modelMapper.map((Object) any(), (Class<StudentDto>) any())).thenReturn(studentDto);
+        StudentService service = new StudentService(studentRepository, modelMapper);
+
+        TeacherRepository teacherRepository = mock(TeacherRepository.class);
+        when(teacherRepository.findAll()).thenReturn(new ArrayList<>());
+        TeacherService teacherService = new TeacherService(teacherRepository, new ModelMapper());
+
+        FieldOfStudyRepository fieldOfStudyRepository = mock(FieldOfStudyRepository.class);
+        when(fieldOfStudyRepository.findAll()).thenReturn(new ArrayList<>());
+        FieldOfStudyService fieldOfStudyService = new FieldOfStudyService(fieldOfStudyRepository, new ModelMapper());
+
+        StudentController studentController = new StudentController(service, teacherService, fieldOfStudyService,
+                new BreadcrumbService());
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        assertEquals("student/student-edit-form", studentController.editStudentForm(1L, request, new ConcurrentModel()));
+        verify(studentRepository).findById((Long) any());
+        verify(modelMapper).map((Object) any(), (Class<StudentDto>) any());
+        verify(teacherRepository).findAll();
+        verify(fieldOfStudyRepository).findAll();
+    }
+
+    /**
+     * Method under test: {@link StudentController#editStudentForm(Long, HttpServletRequest, Model)}
+     */
+    @Test
+    void testEditStudentForm5() {
+
+
+        StudentDto studentDto = new StudentDto();
+        studentDto.setAge(1);
+        studentDto.setEmail("jane.doe@example.org");
+        studentDto.setFieldOfStudy(new FieldOfStudy());
+        studentDto.setFirstName("Jane");
+        studentDto.setId(1L);
+        studentDto.setLastName("Doe");
+        studentDto.setTeachers(new HashSet<>());
+        studentDto.setUserDetails(new User());
+        StudentService studentService = mock(StudentService.class);
+        when(studentService.fetchById((Long) any())).thenReturn(studentDto);
+        TeacherRepository teacherRepository = mock(TeacherRepository.class);
+        when(teacherRepository.findAll()).thenReturn(new ArrayList<>());
+        TeacherService teacherService = new TeacherService(teacherRepository, new ModelMapper());
+
+        FieldOfStudyRepository fieldOfStudyRepository = mock(FieldOfStudyRepository.class);
+        when(fieldOfStudyRepository.findAll()).thenReturn(new ArrayList<>());
+        FieldOfStudyService fieldOfStudyService = new FieldOfStudyService(fieldOfStudyRepository, new ModelMapper());
+
+        StudentController studentController = new StudentController(studentService, teacherService, fieldOfStudyService,
+                new BreadcrumbService());
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        assertEquals("student/student-edit-form", studentController.editStudentForm(1L, request, new ConcurrentModel()));
+        verify(studentService).fetchById((Long) any());
+        verify(teacherRepository).findAll();
+        verify(fieldOfStudyRepository).findAll();
+    }
+
+    /**
+     * Method under test: {@link StudentController#editStudentForm(Long, HttpServletRequest, Model)}
+     */
+    @Test
+    void testEditStudentForm6() {
+        StudentDto studentDto = new StudentDto();
+        studentDto.setAge(1);
+        studentDto.setEmail("jane.doe@example.org");
+        studentDto.setFieldOfStudy(new FieldOfStudy());
+        studentDto.setFirstName("Jane");
+        studentDto.setId(1L);
+        studentDto.setLastName("Doe");
+        studentDto.setTeachers(new HashSet<>());
+        studentDto.setUserDetails(new User());
+        StudentService studentService = mock(StudentService.class);
+        when(studentService.fetchById((Long) any())).thenReturn(studentDto);
+
+        ArrayList<Teacher> teacherList = new ArrayList<>();
+        teacherList.add(new Teacher());
+        TeacherRepository teacherRepository = mock(TeacherRepository.class);
+        when(teacherRepository.findAll()).thenReturn(teacherList);
+        TeacherService teacherService = new TeacherService(teacherRepository, new ModelMapper());
+
+        FieldOfStudyRepository fieldOfStudyRepository = mock(FieldOfStudyRepository.class);
+        when(fieldOfStudyRepository.findAll()).thenReturn(new ArrayList<>());
+        FieldOfStudyService fieldOfStudyService = new FieldOfStudyService(fieldOfStudyRepository, new ModelMapper());
+
+        StudentController studentController = new StudentController(studentService, teacherService, fieldOfStudyService,
+                new BreadcrumbService());
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        assertEquals("student/student-edit-form", studentController.editStudentForm(1L, request, new ConcurrentModel()));
+        verify(studentService).fetchById((Long) any());
+        verify(teacherRepository).findAll();
+        verify(fieldOfStudyRepository).findAll();
+    }
+
+    /**
+     * Method under test: {@link StudentController#editStudentForm(Long, HttpServletRequest, Model)}
+     */
+    @Test
+    void testEditStudentForm7() {
+
+        StudentDto studentDto = new StudentDto();
+        studentDto.setAge(1);
+        studentDto.setEmail("jane.doe@example.org");
+        studentDto.setFieldOfStudy(new FieldOfStudy());
+        studentDto.setFirstName("Jane");
+        studentDto.setId(1L);
+        studentDto.setLastName("Doe");
+        studentDto.setTeachers(new HashSet<>());
+        studentDto.setUserDetails(new User());
+        StudentService studentService = mock(StudentService.class);
+        when(studentService.fetchById((Long) any())).thenReturn(studentDto);
+
+        ArrayList<Teacher> teacherList = new ArrayList<>();
+        teacherList.add(new Teacher());
+        teacherList.add(new Teacher());
+        TeacherRepository teacherRepository = mock(TeacherRepository.class);
+        when(teacherRepository.findAll()).thenReturn(teacherList);
+        TeacherService teacherService = new TeacherService(teacherRepository, new ModelMapper());
+
+        FieldOfStudyRepository fieldOfStudyRepository = mock(FieldOfStudyRepository.class);
+        when(fieldOfStudyRepository.findAll()).thenReturn(new ArrayList<>());
+        FieldOfStudyService fieldOfStudyService = new FieldOfStudyService(fieldOfStudyRepository, new ModelMapper());
+
+        StudentController studentController = new StudentController(studentService, teacherService, fieldOfStudyService,
+                new BreadcrumbService());
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        assertEquals("student/student-edit-form", studentController.editStudentForm(1L, request, new ConcurrentModel()));
+        verify(studentService).fetchById((Long) any());
+        verify(teacherRepository).findAll();
+        verify(fieldOfStudyRepository).findAll();
+    }
+
+    /**
+     * Method under test: {@link StudentController#editStudentForm(Long, HttpServletRequest, Model)}
+     */
+    @Test
+    @Disabled("TODO: Complete this test")
+    void testEditStudentForm8() {
+
+        StudentDto studentDto = new StudentDto();
+        studentDto.setAge(1);
+        studentDto.setEmail("jane.doe@example.org");
+        studentDto.setFieldOfStudy(new FieldOfStudy());
+        studentDto.setFirstName("Jane");
+        studentDto.setId(1L);
+        studentDto.setLastName("Doe");
+        studentDto.setTeachers(new HashSet<>());
+        studentDto.setUserDetails(new User());
+        StudentService studentService = mock(StudentService.class);
+        when(studentService.fetchById((Long) any())).thenReturn(studentDto);
+        FieldOfStudyRepository fieldOfStudyRepository = mock(FieldOfStudyRepository.class);
+        when(fieldOfStudyRepository.findAll()).thenReturn(new ArrayList<>());
+        FieldOfStudyService fieldOfStudyService = new FieldOfStudyService(fieldOfStudyRepository, new ModelMapper());
+
+        StudentController studentController = new StudentController(studentService, null, fieldOfStudyService,
+                new BreadcrumbService());
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        studentController.editStudentForm(1L, request, new ConcurrentModel());
+    }
+
+    /**
+     * Method under test: {@link StudentController#editStudentForm(Long, HttpServletRequest, Model)}
+     */
+    @Test
+    void testEditStudentForm9() {
+
+        StudentDto studentDto = new StudentDto();
+        studentDto.setAge(1);
+        studentDto.setEmail("jane.doe@example.org");
+        studentDto.setFieldOfStudy(new FieldOfStudy());
+        studentDto.setFirstName("Jane");
+        studentDto.setId(1L);
+        studentDto.setLastName("Doe");
+        studentDto.setTeachers(new HashSet<>());
+        studentDto.setUserDetails(new User());
+        StudentService studentService = mock(StudentService.class);
+        when(studentService.fetchById((Long) any())).thenReturn(studentDto);
+        TeacherService teacherService = mock(TeacherService.class);
+        when(teacherService.fetchAll()).thenReturn(new ArrayList<>());
+        FieldOfStudyRepository fieldOfStudyRepository = mock(FieldOfStudyRepository.class);
+        when(fieldOfStudyRepository.findAll()).thenReturn(new ArrayList<>());
+        FieldOfStudyService fieldOfStudyService = new FieldOfStudyService(fieldOfStudyRepository, new ModelMapper());
+
+        StudentController studentController = new StudentController(studentService, teacherService, fieldOfStudyService,
+                new BreadcrumbService());
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        assertEquals("student/student-edit-form", studentController.editStudentForm(1L, request, new ConcurrentModel()));
+        verify(studentService).fetchById((Long) any());
+        verify(teacherService).fetchAll();
+        verify(fieldOfStudyRepository).findAll();
+    }
+
+    /**
+     * Method under test: {@link StudentController#editStudentForm(Long, HttpServletRequest, Model)}
+     */
+    @Test
+    void testEditStudentForm10() {
+
+        StudentDto studentDto = new StudentDto();
+        studentDto.setAge(1);
+        studentDto.setEmail("jane.doe@example.org");
+        studentDto.setFieldOfStudy(new FieldOfStudy());
+        studentDto.setFirstName("Jane");
+        studentDto.setId(1L);
+        studentDto.setLastName("Doe");
+        studentDto.setTeachers(new HashSet<>());
+        studentDto.setUserDetails(new User());
+        StudentService studentService = mock(StudentService.class);
+        when(studentService.fetchById((Long) any())).thenReturn(studentDto);
+        TeacherService teacherService = mock(TeacherService.class);
+        when(teacherService.fetchAll()).thenReturn(new ArrayList<>());
+
+        ArrayList<FieldOfStudy> fieldOfStudyList = new ArrayList<>();
+        fieldOfStudyList.add(new FieldOfStudy());
+        FieldOfStudyRepository fieldOfStudyRepository = mock(FieldOfStudyRepository.class);
+        when(fieldOfStudyRepository.findAll()).thenReturn(fieldOfStudyList);
+        FieldOfStudyService fieldOfStudyService = new FieldOfStudyService(fieldOfStudyRepository, new ModelMapper());
+
+        StudentController studentController = new StudentController(studentService, teacherService, fieldOfStudyService,
+                new BreadcrumbService());
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        assertEquals("student/student-edit-form", studentController.editStudentForm(1L, request, new ConcurrentModel()));
+        verify(studentService).fetchById((Long) any());
+        verify(teacherService).fetchAll();
+        verify(fieldOfStudyRepository).findAll();
+    }
+
+    /**
+     * Method under test: {@link StudentController#editStudentForm(Long, HttpServletRequest, Model)}
+     */
+    @Test
+    void testEditStudentForm11() {
+
+        StudentDto studentDto = new StudentDto();
+        studentDto.setAge(1);
+        studentDto.setEmail("jane.doe@example.org");
+        studentDto.setFieldOfStudy(new FieldOfStudy());
+        studentDto.setFirstName("Jane");
+        studentDto.setId(1L);
+        studentDto.setLastName("Doe");
+        studentDto.setTeachers(new HashSet<>());
+        studentDto.setUserDetails(new User());
+        StudentService studentService = mock(StudentService.class);
+        when(studentService.fetchById((Long) any())).thenReturn(studentDto);
+        TeacherService teacherService = mock(TeacherService.class);
+        when(teacherService.fetchAll()).thenReturn(new ArrayList<>());
+
+        ArrayList<FieldOfStudy> fieldOfStudyList = new ArrayList<>();
+        fieldOfStudyList.add(new FieldOfStudy());
+        fieldOfStudyList.add(new FieldOfStudy());
+        FieldOfStudyRepository fieldOfStudyRepository = mock(FieldOfStudyRepository.class);
+        when(fieldOfStudyRepository.findAll()).thenReturn(fieldOfStudyList);
+        FieldOfStudyService fieldOfStudyService = new FieldOfStudyService(fieldOfStudyRepository, new ModelMapper());
+
+        StudentController studentController = new StudentController(studentService, teacherService, fieldOfStudyService,
+                new BreadcrumbService());
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        assertEquals("student/student-edit-form", studentController.editStudentForm(1L, request, new ConcurrentModel()));
+        verify(studentService).fetchById((Long) any());
+        verify(teacherService).fetchAll();
+        verify(fieldOfStudyRepository).findAll();
+    }
+
+    /**
+     * Method under test: {@link StudentController#editStudentForm(Long, HttpServletRequest, Model)}
+     */
+    @Test
+    void testEditStudentForm12() {
+
+        StudentDto studentDto = new StudentDto();
+        studentDto.setAge(1);
+        studentDto.setEmail("jane.doe@example.org");
+        studentDto.setFieldOfStudy(new FieldOfStudy());
+        studentDto.setFirstName("Jane");
+        studentDto.setId(1L);
+        studentDto.setLastName("Doe");
+        studentDto.setTeachers(new HashSet<>());
+        studentDto.setUserDetails(new User());
+        StudentService studentService = mock(StudentService.class);
+        when(studentService.fetchById((Long) any())).thenReturn(studentDto);
+        TeacherService teacherService = mock(TeacherService.class);
+        when(teacherService.fetchAll()).thenReturn(new ArrayList<>());
+        FieldOfStudyService fieldOfStudyService = mock(FieldOfStudyService.class);
+        when(fieldOfStudyService.fetchAll()).thenReturn(new ArrayList<>());
+        StudentController studentController = new StudentController(studentService, teacherService, fieldOfStudyService,
+                new BreadcrumbService());
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        assertEquals("student/student-edit-form", studentController.editStudentForm(1L, request, new ConcurrentModel()));
+        verify(studentService).fetchById((Long) any());
+        verify(teacherService).fetchAll();
+        verify(fieldOfStudyService).fetchAll();
+    }
+
+    /**
+     * Method under test: {@link StudentController#editStudentForm(Long, HttpServletRequest, Model)}
+     */
+    @Test
+    @Disabled("TODO: Complete this test")
+    void testEditStudentForm13() {
+
+        StudentDto studentDto = new StudentDto();
+        studentDto.setAge(1);
+        studentDto.setEmail("jane.doe@example.org");
+        studentDto.setFieldOfStudy(new FieldOfStudy());
+        studentDto.setFirstName("Jane");
+        studentDto.setId(1L);
+        studentDto.setLastName("Doe");
+        studentDto.setTeachers(new HashSet<>());
+        studentDto.setUserDetails(new User());
+        StudentService studentService = mock(StudentService.class);
+        when(studentService.fetchById((Long) any())).thenReturn(studentDto);
+        TeacherService teacherService = mock(TeacherService.class);
+        when(teacherService.fetchAll()).thenReturn(new ArrayList<>());
+        FieldOfStudyService fieldOfStudyService = mock(FieldOfStudyService.class);
+        when(fieldOfStudyService.fetchAll()).thenReturn(new ArrayList<>());
+        StudentController studentController = new StudentController(studentService, teacherService, fieldOfStudyService,
+                null);
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        studentController.editStudentForm(1L, request, new ConcurrentModel());
+    }
+
+    /**
+     * Method under test: {@link StudentController#editStudentForm(Long, HttpServletRequest, Model)}
+     */
+    @Test
+    void testEditStudentForm14() {
+
+        StudentDto studentDto = new StudentDto();
+        studentDto.setAge(1);
+        studentDto.setEmail("jane.doe@example.org");
+        studentDto.setFieldOfStudy(new FieldOfStudy());
+        studentDto.setFirstName("Jane");
+        studentDto.setId(1L);
+        studentDto.setLastName("Doe");
+        studentDto.setTeachers(new HashSet<>());
+        studentDto.setUserDetails(new User());
+        StudentService studentService = mock(StudentService.class);
+        when(studentService.fetchById((Long) any())).thenReturn(studentDto);
+        TeacherService teacherService = mock(TeacherService.class);
+        when(teacherService.fetchAll()).thenReturn(new ArrayList<>());
+        FieldOfStudyService fieldOfStudyService = mock(FieldOfStudyService.class);
+        when(fieldOfStudyService.fetchAll()).thenReturn(new ArrayList<>());
+        BreadcrumbService breadcrumbService = mock(BreadcrumbService.class);
+        when(breadcrumbService.getBreadcrumbs((String) any())).thenReturn(new ArrayList<>());
+        StudentController studentController = new StudentController(studentService, teacherService, fieldOfStudyService,
+                breadcrumbService);
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        assertEquals("student/student-edit-form", studentController.editStudentForm(1L, request, new ConcurrentModel()));
+        verify(studentService).fetchById((Long) any());
+        verify(teacherService).fetchAll();
+        verify(fieldOfStudyService).fetchAll();
+        verify(breadcrumbService).getBreadcrumbs((String) any());
+    }
+
+    /**
+     * Method under test: {@link StudentController#editStudent(StudentDto, BindingResult, RedirectAttributes, HttpServletRequest, Model)}
+     */
+    @Test
+    void testEditStudent() {
+
+        StudentRepository studentRepository = mock(StudentRepository.class);
+        when(studentRepository.findById((Long) any())).thenReturn(Optional.of(new Student()));
+        StudentService service = new StudentService(studentRepository, new ModelMapper());
+
+        TeacherRepository repository = mock(TeacherRepository.class);
+        TeacherService teacherService = new TeacherService(repository, new ModelMapper());
+
+        FieldOfStudyRepository repository1 = mock(FieldOfStudyRepository.class);
+        FieldOfStudyService fieldOfStudyService = new FieldOfStudyService(repository1, new ModelMapper());
+
+        StudentController studentController = new StudentController(service, teacherService, fieldOfStudyService,
+                new BreadcrumbService());
+
+        StudentDto studentDto = new StudentDto();
+        studentDto.setAge(1);
+        studentDto.setEmail("jane.doe@example.org");
+        studentDto.setFieldOfStudy(new FieldOfStudy());
+        studentDto.setFirstName("Jane");
+        studentDto.setId(1L);
+        studentDto.setLastName("Doe");
+        studentDto.setTeachers(new HashSet<>());
+        studentDto.setUserDetails(new User());
+        BindException result = new BindException("Target", "Object Name");
+
+        RedirectAttributesModelMap redirectAttributes = new RedirectAttributesModelMap();
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        assertEquals(StudentController.REDIRECT_DASHBOARD_STUDENTS,
+                studentController.editStudent(studentDto, result, redirectAttributes, request, new ConcurrentModel()));
+        verify(studentRepository).findById((Long) any());
+        assertEquals(1, studentDto.getFieldOfStudy().getStudents().size());
+    }
+
+    /**
+     * Method under test: {@link StudentController#deleteStudent(Long, RedirectAttributes)}
+     */
+    @Test
+    void testDeleteStudent() {
+        StudentRepository studentRepository = mock(StudentRepository.class);
+        doNothing().when(studentRepository).delete((Student) any());
+        when(studentRepository.findById((Long) any())).thenReturn(Optional.of(new Student()));
+        StudentService service = new StudentService(studentRepository, new ModelMapper());
+
+        TeacherRepository repository = mock(TeacherRepository.class);
+        TeacherService teacherService = new TeacherService(repository, new ModelMapper());
+
+        FieldOfStudyRepository repository1 = mock(FieldOfStudyRepository.class);
+        FieldOfStudyService fieldOfStudyService = new FieldOfStudyService(repository1, new ModelMapper());
+
+        StudentController studentController = new StudentController(service, teacherService, fieldOfStudyService,
+                new BreadcrumbService());
+        assertEquals(StudentController.REDIRECT_DASHBOARD_STUDENTS,
+                studentController.deleteStudent(1L, new RedirectAttributesModelMap()));
+        verify(studentRepository, atLeast(1)).findById((Long) any());
+        verify(studentRepository).delete((Student) any());
+    }
+
+    /**
+     * Method under test: {@link StudentController#deleteStudent(Long, RedirectAttributes)}
+     */
+    @Test
+    @Disabled("TODO: Complete this test")
+    void testDeleteStudent2() {
+
+        StudentRepository studentRepository = mock(StudentRepository.class);
+        doNothing().when(studentRepository).delete((Student) any());
+        when(studentRepository.findById((Long) any())).thenReturn(Optional.empty());
+        StudentService service = new StudentService(studentRepository, new ModelMapper());
+
+        TeacherRepository repository = mock(TeacherRepository.class);
+        TeacherService teacherService = new TeacherService(repository, new ModelMapper());
+
+        FieldOfStudyRepository repository1 = mock(FieldOfStudyRepository.class);
+        FieldOfStudyService fieldOfStudyService = new FieldOfStudyService(repository1, new ModelMapper());
+
+        StudentController studentController = new StudentController(service, teacherService, fieldOfStudyService,
+                new BreadcrumbService());
+        studentController.deleteStudent(1L, new RedirectAttributesModelMap());
+    }
+
+    /**
+     * Method under test: {@link StudentController#deleteStudent(Long, RedirectAttributes)}
+     */
+    @Test
+    @Disabled("TODO: Complete this test")
+    void testDeleteStudent3() {
+
+        StudentRepository studentRepository = mock(StudentRepository.class);
+        doNothing().when(studentRepository).delete((Student) any());
+        when(studentRepository.findById((Long) any())).thenReturn(Optional.of(new Student()));
+        StudentService service = new StudentService(studentRepository, null);
+
+        TeacherRepository repository = mock(TeacherRepository.class);
+        TeacherService teacherService = new TeacherService(repository, new ModelMapper());
+
+        FieldOfStudyRepository repository1 = mock(FieldOfStudyRepository.class);
+        FieldOfStudyService fieldOfStudyService = new FieldOfStudyService(repository1, new ModelMapper());
+
+        StudentController studentController = new StudentController(service, teacherService, fieldOfStudyService,
+                new BreadcrumbService());
+        studentController.deleteStudent(1L, new RedirectAttributesModelMap());
+    }
+
+    /**
+     * Method under test: {@link StudentController#deleteStudent(Long, RedirectAttributes)}
+     */
+    @Test
+    void testDeleteStudent4() {
+
+        StudentRepository studentRepository = mock(StudentRepository.class);
+        doNothing().when(studentRepository).delete((Student) any());
+        when(studentRepository.findById((Long) any())).thenReturn(Optional.of(new Student()));
+
+        StudentDto studentDto = new StudentDto();
+        studentDto.setAge(1);
+        studentDto.setEmail("jane.doe@example.org");
+        studentDto.setFieldOfStudy(new FieldOfStudy());
+        studentDto.setFirstName("Jane");
+        studentDto.setId(1L);
+        studentDto.setLastName("Doe");
+        studentDto.setTeachers(new HashSet<>());
+        studentDto.setUserDetails(new User());
+        ModelMapper modelMapper = mock(ModelMapper.class);
+        when(modelMapper.map((Object) any(), (Class<StudentDto>) any())).thenReturn(studentDto);
+        StudentService service = new StudentService(studentRepository, modelMapper);
+
+        TeacherRepository repository = mock(TeacherRepository.class);
+        TeacherService teacherService = new TeacherService(repository, new ModelMapper());
+
+        FieldOfStudyRepository repository1 = mock(FieldOfStudyRepository.class);
+        FieldOfStudyService fieldOfStudyService = new FieldOfStudyService(repository1, new ModelMapper());
+
+        StudentController studentController = new StudentController(service, teacherService, fieldOfStudyService,
+                new BreadcrumbService());
+        assertEquals(StudentController.REDIRECT_DASHBOARD_STUDENTS,
+                studentController.deleteStudent(1L, new RedirectAttributesModelMap()));
+        verify(studentRepository, atLeast(1)).findById((Long) any());
+        verify(studentRepository).delete((Student) any());
+        verify(modelMapper).map((Object) any(), (Class<StudentDto>) any());
+    }
+
+    /**
+     * Method under test: {@link StudentController#deleteStudent(Long, RedirectAttributes)}
+     */
+    @Test
+    void testDeleteStudent5() {
+
+        StudentDto studentDto = new StudentDto();
+        studentDto.setAge(1);
+        studentDto.setEmail("jane.doe@example.org");
+        studentDto.setFieldOfStudy(new FieldOfStudy());
+        studentDto.setFirstName("Jane");
+        studentDto.setId(1L);
+        studentDto.setLastName("Doe");
+        studentDto.setTeachers(new HashSet<>());
+        studentDto.setUserDetails(new User());
+        StudentService studentService = mock(StudentService.class);
+        when(studentService.fetchById((Long) any())).thenReturn(studentDto);
+        doNothing().when(studentService).remove((Long) any());
+        TeacherRepository repository = mock(TeacherRepository.class);
+        TeacherService teacherService = new TeacherService(repository, new ModelMapper());
+
+        FieldOfStudyRepository repository1 = mock(FieldOfStudyRepository.class);
+        FieldOfStudyService fieldOfStudyService = new FieldOfStudyService(repository1, new ModelMapper());
+
+        StudentController studentController = new StudentController(studentService, teacherService, fieldOfStudyService,
+                new BreadcrumbService());
+        assertEquals(StudentController.REDIRECT_DASHBOARD_STUDENTS,
+                studentController.deleteStudent(1L, new RedirectAttributesModelMap()));
+        verify(studentService).fetchById((Long) any());
+        verify(studentService).remove((Long) any());
+    }
+}
+
